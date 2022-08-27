@@ -1,0 +1,17 @@
+{
+  "name": "quizly",
+  "version": "1.0.0",
+  "main": "script.js",
+  "scripts": {
+    "compile:sass": "node-sass sass/main.scss css/styles.css -w"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "sass": "^1.54.5"
+  },
+  "description": "",
+  "dependencies": {
+    "node-sass": "^7.0.1"
+  }
+}

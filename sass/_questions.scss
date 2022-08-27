@@ -1,0 +1,151 @@
+#questions {
+  background: var(--color-black);
+  width: 100%;
+}
+
+.questions {
+  border: 2px solid red;
+  text-align: center;
+
+  &__header {
+    @include flex;
+    align-items: baseline;
+    margin: 8rem 0 4rem;
+  }
+
+  &__title {
+    color: var(--color-white);
+    text-transform: capitalize;
+    font-size: 2.2rem;
+    margin-right: 2rem;
+  }
+
+  &__name {
+    color: var(--color-yellow);
+    font-size: 6rem;
+  }
+
+  &__input {
+    padding: 1.6rem 1rem;
+    margin-bottom: 4rem;
+
+    width: 80%;
+  }
+
+  &__answers {
+    @include flex(column);
+
+    @include respond(678px) {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      place-items: center;
+    }
+  }
+
+  &__answer {
+    background-color: var(--color-white);
+    margin-bottom: 1rem;
+    border-radius: var(--border-radius);
+    padding: 0.6rem;
+    position: relative;
+
+    @include flex;
+  }
+
+  &__shape-box {
+    width: 3.6rem;
+    height: 8rem;
+    border-radius: var(--border-radius);
+
+    @include flex;
+
+    &--1 {
+      background: var(--color-red);
+    }
+
+    &--2 {
+      background: var(--color-blue);
+    }
+
+    &--3 {
+      background: var(--color-yellow);
+    }
+
+    &--4 {
+      background: var(--color-green);
+    }
+  }
+
+  &__shape {
+    background: var(--color-white);
+    width: 2.2rem;
+    height: 2.2rem;
+
+    &--2 {
+      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    }
+
+    &--3 {
+      @include circle(2.2rem);
+    }
+
+    &--4 {
+      transform: rotate(45deg);
+    }
+  }
+
+  &__length {
+    color: var(--color-white);
+    font-weight: 500;
+    font-size: 1.2rem;
+    position: absolute;
+    top: 0.6rem;
+    right: 0.6rem;
+  }
+
+  .answer__input {
+    border-radius: 0;
+    padding: 1rem;
+    width: 250px;
+    background: transparent;
+    color: var(--color-white);
+    font-weight: 600;
+
+    @include respond(678px) {
+      width: auto;
+    }
+  }
+
+  .answer {
+    appearance: none;
+    border: 2px solid white;
+    position: relative;
+
+    @include circle(3rem);
+
+    &::before {
+      transition: var(--transition);
+      content: "\f00c";
+      font: var(--fa-font-solid);
+      position: absolute;
+      font-size: 1.6rem;
+      opacity: 0;
+      color: white;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    &:checked {
+      background: var(--color-green-light);
+    }
+
+    &:hover::before {
+      opacity: 1;
+    }
+
+    &:checked::before {
+      opacity: 1;
+    }
+  }
+}

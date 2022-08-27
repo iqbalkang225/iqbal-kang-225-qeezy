@@ -1,0 +1,89 @@
+.questions__all {
+  order: 1;
+  position: relative;
+  @include flex;
+  justify-content: start;
+
+  @include respond(678px) {
+    height: auto;
+    order: 0;
+    @include flex(column);
+  }
+}
+
+.questions {
+  &__box {
+    margin-right: 1rem;
+    cursor: pointer;
+
+    @include respond(678px) {
+      margin-right: 0;
+      margin-bottom: 1rem;
+    }
+  }
+
+  &__heading {
+    @include flex;
+    justify-content: start;
+    margin-bottom: 0.4rem;
+  }
+
+  &__number {
+    color: var(--color-white-dark);
+    margin-right: 0.6rem;
+  }
+}
+
+.question {
+  &__info {
+    background-color: var(--color-white-dark);
+    padding: 0.4rem;
+    border-radius: var(--border-radius);
+    font-size: 0.8rem;
+
+    @include flex(column);
+
+    &:hover {
+      background-color: var(--color-white);
+    }
+  }
+
+  &__timer-box {
+    border: 1.4px solid var(--color-gray);
+    display: inline-block;
+    @include circle(2rem);
+    margin: 0.8rem 0;
+
+    @include flex;
+  }
+
+  &__delete {
+    align-self: end;
+    margin-right: 0.8rem;
+    transition: var(--transition);
+    font-size: 1rem;
+
+    &:hover {
+      color: var(--color-blue);
+    }
+  }
+
+  &__add-box {
+    background-color: var(--color-blue);
+    padding: 1rem 1.2rem;
+    border-radius: var(--border-radius);
+    position: fixed;
+    right: 2rem;
+    bottom: 1rem;
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--color-blue-light);
+    }
+  }
+
+  &__add {
+    color: var(--color-white);
+    font-size: 4rem;
+  }
+}

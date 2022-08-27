@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Queezy</title>
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- FONT AWESOME ICONS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+      integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- CSS STYLE SHEET -->
+    <link rel="stylesheet" href="./css/styles.css" />
+  </head>
+  <body>
+    <!-- HEADER SECTION -->
+    <header id="header">
+      <div class="header section__center">
+        <div class="header__icon-box">
+          <div class="header__icon"></div>
+        </div>
+
+        <h1 class="header__logo">queezy</h1>
+
+        <button class="btn btn--finish">Finish</button>
+      </div>
+    </header>
+
+    <main class="container">
+      <aside class="questions__all section__center">
+        <!-- QUESTION 1 -->
+        <div class="questions__box">
+          <div class="questions__heading">
+            <span class="questions__number">1</span>
+            <p>Quiz</p>
+          </div>
+          <div class="question__info">
+            <p class="question">What is java?</p>
+            <div class="question__timer-box">
+              <span class="question__timer">20</span>
+            </div>
+            <i class="fa-solid fa-trash-can question__delete"></i>
+          </div>
+        </div>
+
+        <!-- QUESTION 2 -->
+        <div class="questions__box">
+          <div class="questions__heading">
+            <span class="questions__number">1</span>
+            <p>Quiz</p>
+          </div>
+          <div class="question__info">
+            <p class="question">What is java?</p>
+            <div class="question__timer-box">
+              <span class="question__timer">20</span>
+            </div>
+            <i class="fa-solid fa-trash-can question__delete"></i>
+          </div>
+        </div>
+
+        <!-- <div class="question__add-box">
+          <i class="fa-solid fa-plus question__add"></i>
+        </div> -->
+      </aside>
+
+      <!-- MIDDLE PART -->
+      <section id="questions">
+        <div class="section__center questions">
+          <div class="questions__header">
+            <h4 class="questions__title">quiz name:</h4>
+            <h2 class="questions__name">Tech</h2>
+          </div>
+
+          <form action="" class="questions__form">
+            <input
+              type="text"
+              class="questions__input"
+              placeholder="Start typing your question"
+            />
+
+            <div class="questions__answers">
+              <!-- ANSWER 1 -->
+              <div class="questions__answer questions__answer--1">
+                <div class="questions__shape-box questions__shape-box--1">
+                  <div class="questions__shape questions__shape--1"></div>
+                </div>
+
+                <input
+                  type="text"
+                  class="answer__input"
+                  placeholder="Add answer 1"
+                />
+
+                <input
+                  type="radio"
+                  name="answer"
+                  value=""
+                  class="answer answer--1"
+                />
+
+                <span class="questions__length">75</span>
+              </div>
+
+              <!-- ANSWER 2 -->
+              <div class="questions__answer questions__answer--2">
+                <div class="questions__shape-box questions__shape-box--2">
+                  <div class="questions__shape questions__shape--2"></div>
+                </div>
+
+                <input
+                  type="text"
+                  class="answer__input"
+                  placeholder="Add answer 2"
+                />
+
+                <input
+                  type="radio"
+                  name="answer"
+                  value=""
+                  class="answer answer--2"
+                />
+
+                <span class="questions__length">75</span>
+              </div>
+
+              <!-- ANSWER 3-->
+              <div class="questions__answer questions__answer--3">
+                <div class="questions__shape-box questions__shape-box--3">
+                  <div class="questions__shape questions__shape--3"></div>
+                </div>
+
+                <input
+                  type="text"
+                  class="answer__input"
+                  placeholder="Add answer 3"
+                />
+
+                <input
+                  type="radio"
+                  name="answer"
+                  value=""
+                  class="answer answer--3"
+                />
+
+                <span class="questions__length">75</span>
+              </div>
+
+              <!-- ANSWER 4 -->
+              <div class="questions__answer questions__answer--4">
+                <div class="questions__shape-box questions__shape-box--4">
+                  <div class="questions__shape questions__shape--4"></div>
+                </div>
+
+                <input
+                  type="text"
+                  class="answer__input"
+                  placeholder="Add answer 4"
+                />
+
+                <input
+                  type="radio"
+                  name="answer"
+                  value=""
+                  class="answer answer--4"
+                />
+
+                <span class="questions__length">75</span>
+              </div>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <aside class="questions__options"></aside>
+    </main>
+    <script src="./script.js"></script>
+  </body>
+</html>
