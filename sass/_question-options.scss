@@ -1,0 +1,74 @@
+.questions {
+  &__options {
+    background: var(--color-white);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    width: 50%;
+    box-shadow: var(--box-shadow);
+    display: none;
+
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+
+    @include respond(920px) {
+      width: 100%;
+      height: 100%;
+      display: block;
+      border-radius: 0;
+      background: url(/confused.jpg) bottom/contain, var(--color-white);
+      background-repeat: no-repeat;
+
+      @include flex(column);
+      align-items: stretch;
+      justify-content: start;
+
+      position: relative;
+      top: 0;
+      left: 0;
+      transform: translate(0%, 0%);
+    }
+  }
+
+  &__option {
+    @include flex(column);
+    align-items: start;
+    margin-bottom: 2rem;
+
+    &--btns {
+      @include flex;
+      justify-content: space-between;
+
+      @include respond(900px) {
+        display: none;
+      }
+    }
+  }
+
+  &__option label {
+    margin-bottom: 1rem;
+  }
+
+  &__option label i {
+    margin-right: 0.2rem;
+  }
+
+  &__option select {
+    width: 100%;
+    padding: 0.5rem;
+  }
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: var(--color-yellow);
+  opacity: 0.99;
+  z-index: 1;
+  display: none;
+}

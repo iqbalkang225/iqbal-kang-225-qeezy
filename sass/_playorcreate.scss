@@ -1,0 +1,67 @@
+.playorcreate {
+  color: var(--color-white);
+  text-transform: capitalize;
+  font-size: 3.3rem;
+  overflow: hidden;
+
+  @include respond(678px) {
+    font-size: 5rem;
+  }
+
+  @include respond(920px) {
+    font-size: 7rem;
+  }
+
+  @include respond(1170px) {
+    font-size: 9rem;
+  }
+}
+
+.play {
+  background: var(--color-green);
+
+  &__heading {
+    height: 100%;
+    line-height: 0.75;
+    @include flex;
+    transform: translateY(-5%);
+
+    @include respond(920px) {
+      align-items: start;
+      transform: translateY(0);
+    }
+
+    span {
+      cursor: pointer;
+      &:hover {
+        color: var(--color-yellow);
+      }
+    }
+  }
+}
+
+.create {
+  background: var(--color-yellow);
+
+  &__heading {
+    height: 100%;
+    line-height: 0.7;
+
+    span {
+      cursor: pointer;
+      &:hover {
+        color: var(--color-green);
+      }
+    }
+
+    display: flex;
+    align-items: center;
+    transform: translateY(5%);
+    justify-content: center;
+
+    @include respond(920px) {
+      align-items: end;
+      transform: translateY(0);
+    }
+  }
+}

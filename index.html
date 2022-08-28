@@ -25,7 +25,7 @@
     <!-- CSS STYLE SHEET -->
     <link rel="stylesheet" href="./css/styles.css" />
   </head>
-  <body>
+  <body class="main-container">
     <!-- HEADER SECTION -->
     <header id="header">
       <div class="header section__center">
@@ -35,11 +35,21 @@
 
         <h1 class="header__logo">queezy</h1>
 
-        <button class="btn btn--finish">Finish</button>
+        <button class="btn btn--finish btn--finish-1">finish</button>
       </div>
     </header>
 
-    <main class="container">
+    <div class="container__playorcreate">
+      <div class="play playorcreate">
+        <h1 class="play__heading"><span>play</span></h1>
+      </div>
+      <div class="create playorcreate">
+        <h1 class="create__heading"><span>create</span></h1>
+      </div>
+    </div>
+
+    <main class="container__create">
+      <!-- ALL Questions - LEFT SIDE -->
       <aside class="questions__all section__center">
         <!-- QUESTION 1 -->
         <div class="questions__box">
@@ -71,12 +81,117 @@
           </div>
         </div>
 
-        <!-- <div class="question__add-box">
-          <i class="fa-solid fa-plus question__add"></i>
-        </div> -->
+        <!-- QUESTION 2 -->
+        <div class="questions__box">
+          <div class="questions__heading">
+            <span class="questions__number">1</span>
+            <p>Quiz</p>
+          </div>
+          <div class="question__info">
+            <p class="question">What is java?</p>
+            <div class="question__timer-box">
+              <span class="question__timer">20</span>
+            </div>
+            <i class="fa-solid fa-trash-can question__delete"></i>
+          </div>
+        </div>
+
+        <!-- QUESTION 2 -->
+        <div class="questions__box">
+          <div class="questions__heading">
+            <span class="questions__number">1</span>
+            <p>Quiz</p>
+          </div>
+          <div class="question__info">
+            <p class="question">What is java?</p>
+            <div class="question__timer-box">
+              <span class="question__timer">20</span>
+            </div>
+            <i class="fa-solid fa-trash-can question__delete"></i>
+          </div>
+        </div>
+
+        <!-- QUESTION 2 -->
+        <div class="questions__box">
+          <div class="questions__heading">
+            <span class="questions__number">1</span>
+            <p>Quiz</p>
+          </div>
+          <div class="question__info">
+            <p class="question">What is java?</p>
+            <div class="question__timer-box">
+              <span class="question__timer">20</span>
+            </div>
+            <i class="fa-solid fa-trash-can question__delete"></i>
+          </div>
+        </div>
+
+        <!-- QUESTION 2 -->
+        <div class="questions__box">
+          <div class="questions__heading">
+            <span class="questions__number">1</span>
+            <p>Quiz</p>
+          </div>
+          <div class="question__info">
+            <p class="question">What is java?</p>
+            <div class="question__timer-box">
+              <span class="question__timer">20</span>
+            </div>
+            <i class="fa-solid fa-trash-can question__delete"></i>
+          </div>
+        </div>
+
+        <!-- QUESTION 2 -->
+        <div class="questions__box">
+          <div class="questions__heading">
+            <span class="questions__number">1</span>
+            <p>Quiz</p>
+          </div>
+          <div class="question__info">
+            <p class="question">What is java?</p>
+            <div class="question__timer-box">
+              <span class="question__timer">20</span>
+            </div>
+            <i class="fa-solid fa-trash-can question__delete"></i>
+          </div>
+        </div>
+
+        <!-- QUESTION 2 -->
+        <div class="questions__box">
+          <div class="questions__heading">
+            <span class="questions__number">1</span>
+            <p>Quiz</p>
+          </div>
+          <div class="question__info">
+            <p class="question">What is java?</p>
+            <div class="question__timer-box">
+              <span class="question__timer">20</span>
+            </div>
+            <i class="fa-solid fa-trash-can question__delete"></i>
+          </div>
+        </div>
+
+        <!-- QUESTION 2 -->
+        <div class="questions__box">
+          <div class="questions__heading">
+            <span class="questions__number">1</span>
+            <p>Quiz</p>
+          </div>
+          <div class="question__info">
+            <p class="question">What is java?</p>
+            <div class="question__timer-box">
+              <span class="question__timer">20</span>
+            </div>
+            <i class="fa-solid fa-trash-can question__delete"></i>
+          </div>
+        </div>
+
+        <div class="question__next-box">
+          <i class="fa-solid fa-plus question__next"></i>
+        </div>
       </aside>
 
-      <!-- MIDDLE PART -->
+      <!-- QUESTIONS FORM - MIDDLE PART -->
       <section id="questions">
         <div class="section__center questions">
           <div class="questions__header">
@@ -184,8 +299,98 @@
         </div>
       </section>
 
-      <aside class="questions__options"></aside>
+      <!-- QUESTIONS OPTIONS - RIGHT SIDE -->
+      <aside class="questions__options">
+        <!-- QUESTIONS OPTION - 1 -->
+        <div class="questions__option">
+          <label for="questions__type">
+            <i class="fa-solid fa-circle-question"></i>
+            <span>Question type</span>
+          </label>
+
+          <select id="questions__type">
+            <option value="quiz">quiz</option>
+            <option value="trueorfalse">true or false</option>
+          </select>
+        </div>
+
+        <!-- QUESTIONS OPTION - 2 -->
+        <div class="questions__option">
+          <label for="questions__time">
+            <i class="fa-solid fa-clock"></i>
+            <span>Time limit</span>
+          </label>
+
+          <select id="questions__time">
+            <option value="5">5 seconds</option>
+            <option value="10">10 seconds</option>
+            <option value="20">20 seconds</option>
+            <option value="30">30 seconds</option>
+            <option value="45">45 seconds</option>
+            <option value="60">1 minute</option>
+          </select>
+        </div>
+
+        <!-- QUESTIONS OPTION - 3 -->
+        <div class="questions__option">
+          <label for="question__points">
+            <i class="fa-solid fa-trophy"></i>
+            <span>Points</span>
+          </label>
+
+          <select id="question__points">
+            <option value="standard">standard</option>
+            <option value="double">double points</option>
+            <option value="none">no points</option>
+          </select>
+        </div>
+        <!-- QUESTIONS OPTION - 4 -->
+        <div class="questions__option--btns">
+          <button class="btn btn--cancel">cancel</button>
+          <button class="btn btn--ok">ok</button>
+        </div>
+
+        <button class="btn btn--next btn--hide">next question</button>
+        <button class="btn btn--finish btn--finish-2 btn--hide">finish</button>
+      </aside>
+
+      <div class="overlay"></div>
     </main>
+
+    <div class="container__play">
+      <div class="play__header">
+        <h2 class="play__title">What is java?</h2>
+
+        <div class="play__info">
+          <div class="play__timer-box">
+            <span class="play__time">20</span>
+          </div>
+          <h4>score: <span class="play__score">500 </span></h4>
+        </div>
+      </div>
+
+      <div class="play__answers">
+        <div class="play__answer play__answer--1">
+          <div class="play__shape play__shape--1"></div>
+          <p class="play__selected">Answer</p>
+        </div>
+
+        <div class="play__answer play__answer--2">
+          <div class="play__shape play__shape--2"></div>
+          <p class="play__selected">Answer</p>
+        </div>
+
+        <div class="play__answer play__answer--3">
+          <div class="play__shape play__shape--3"></div>
+          <p class="play__selected">Answer</p>
+        </div>
+
+        <div class="play__answer play__answer--4">
+          <div class="play__shape play__shape--4"></div>
+          <p class="play__selected">Answer</p>
+        </div>
+      </div>
+    </div>
     <script src="./script.js"></script>
   </body>
 </html>

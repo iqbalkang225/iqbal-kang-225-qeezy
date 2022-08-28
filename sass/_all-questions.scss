@@ -1,24 +1,49 @@
 .questions__all {
   order: 1;
   position: relative;
+
   @include flex;
   justify-content: start;
+  overflow-x: scroll;
+
+  width: 100%;
 
   @include respond(678px) {
-    height: auto;
+    height: calc(100vh - 6rem);
     order: 0;
+    width: 100%;
+    background: var(--color-white);
+    padding: 2rem 0;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
     @include flex(column);
+    justify-content: start;
+  }
+
+  &::-webkit-scrollbar {
+    width: 3px;
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--color-gray);
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--color-yellow);
   }
 }
 
 .questions {
   &__box {
+    flex-shrink: 0;
     margin-right: 1rem;
     cursor: pointer;
 
     @include respond(678px) {
       margin-right: 0;
-      margin-bottom: 1rem;
+      margin-bottom: 2rem;
     }
   }
 
@@ -26,11 +51,19 @@
     @include flex;
     justify-content: start;
     margin-bottom: 0.4rem;
+
+    @include respond(1170px) {
+      font-size: 1.2rem;
+    }
   }
 
   &__number {
     color: var(--color-white-dark);
     margin-right: 0.6rem;
+
+    @include respond(678px) {
+      color: var(--color-gray);
+    }
   }
 }
 
@@ -41,10 +74,27 @@
     border-radius: var(--border-radius);
     font-size: 0.8rem;
 
+    @include respond(678px) {
+      font-size: 1rem;
+    }
+
+    @include respond(1170px) {
+      font-size: 1.4rem;
+    }
+
     @include flex(column);
 
     &:hover {
-      background-color: var(--color-white);
+      background: var(--color-white);
+
+      @include respond(678px) {
+        outline: 2px solid var(--color-blue);
+      }
+    }
+
+    @include respond(678px) {
+      padding: 1rem;
+      box-shadow: var(--box-shadow-light);
     }
   }
 
@@ -54,35 +104,54 @@
     @include circle(2rem);
     margin: 0.8rem 0;
 
+    @include respond(1170px) {
+      @include circle(3rem);
+    }
+
     @include flex;
   }
 
   &__delete {
     align-self: end;
     margin-right: 0.8rem;
-    transition: var(--transition);
     font-size: 1rem;
 
+    @include respond(678px) {
+      margin-right: 0.4rem;
+      font-size: 1.2rem;
+    }
+
     &:hover {
-      color: var(--color-blue);
+      color: var(--color-red);
     }
   }
 
-  &__add-box {
+  &__next-box {
     background-color: var(--color-blue);
-    padding: 1rem 1.2rem;
+    padding: 1rem;
     border-radius: var(--border-radius);
-    position: fixed;
-    right: 2rem;
-    bottom: 1rem;
+    position: sticky;
+    display: block;
+    right: 0rem;
     cursor: pointer;
+
+    @include flex;
+
+    @include respond(678px) {
+      bottom: 0rem;
+      right: auto;
+    }
+
+    @include respond(920px) {
+      display: none;
+    }
 
     &:hover {
       background-color: var(--color-blue-light);
     }
   }
 
-  &__add {
+  &__next {
     color: var(--color-white);
     font-size: 4rem;
   }

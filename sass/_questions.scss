@@ -1,11 +1,15 @@
 #questions {
-  background: var(--color-black);
+  background: url(/question-mark.png), linear-gradient(to bottom, #111, #000);
   width: 100%;
 }
 
 .questions {
-  border: 2px solid red;
   text-align: center;
+  margin-bottom: 1rem;
+
+  @include respond(720px) {
+    display: grid;
+  }
 
   &__header {
     @include flex;
@@ -34,22 +38,32 @@
 
   &__answers {
     @include flex(column);
+    gap: 1rem;
 
-    @include respond(678px) {
+    @include respond(720px) {
       display: grid;
       grid-template-columns: 1fr 1fr;
       place-items: center;
+    }
+
+    @include respond(1170px) {
+      gap: 2rem;
+      padding: 2rem;
     }
   }
 
   &__answer {
     background-color: var(--color-white);
-    margin-bottom: 1rem;
     border-radius: var(--border-radius);
     padding: 0.6rem;
     position: relative;
 
     @include flex;
+
+    @include respond(1170px) {
+      justify-content: start;
+      width: 100%;
+    }
   }
 
   &__shape-box {
@@ -106,25 +120,23 @@
   .answer__input {
     border-radius: 0;
     padding: 1rem;
-    width: 250px;
+    width: 80%;
+    display: block;
+
     background: transparent;
     color: var(--color-white);
     font-weight: 600;
-
-    @include respond(678px) {
-      width: auto;
-    }
   }
 
   .answer {
     appearance: none;
     border: 2px solid white;
     position: relative;
+    cursor: pointer;
 
     @include circle(3rem);
 
     &::before {
-      transition: var(--transition);
       content: "\f00c";
       font: var(--fa-font-solid);
       position: absolute;

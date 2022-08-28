@@ -1,0 +1,156 @@
+.play {
+  &__header {
+    @include flex;
+    justify-content: space-evenly;
+    margin-bottom: 8rem;
+
+    @include respond(1170px) {
+      margin-bottom: 4rem;
+    }
+
+    @include respond(1170px) {
+      @include flex(column);
+    }
+  }
+
+  &__title {
+    font-size: 3rem;
+    padding: 1rem 3rem;
+    background-color: var(--color-white);
+    border-radius: var(--border-radius);
+    text-align: center;
+    font-weight: 300;
+
+    @include respond(678px) {
+      width: 70%;
+    }
+
+    @include respond(1170px) {
+      order: 1;
+      margin-top: 8rem;
+      width: 50%;
+    }
+  }
+
+  &__info {
+    @include flex(column);
+    color: var(--color-white);
+
+    h4 {
+      font-size: 1.4rem;
+      text-transform: capitalize;
+    }
+  }
+
+  &__timer-box {
+    border: 2px solid var(--color-yellow);
+    @include circle(6rem);
+    @include flex;
+    margin-bottom: 1rem;
+
+    @include respond(1170px) {
+      @include circle(8rem);
+      margin-bottom: 2rem;
+    }
+  }
+
+  &__time {
+    font-size: 2rem;
+  }
+
+  &__score {
+    font-size: 2rem;
+  }
+
+  &__answers {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4rem;
+
+    @include respond(678px) {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  &__answer {
+    color: var(--color-white);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    @include flex;
+    justify-content: start;
+    cursor: pointer;
+    position: relative;
+
+    @include respond(678px) {
+      padding: 4rem 2rem;
+    }
+
+    &::after {
+      content: "\f00c";
+      font: var(--fa-font-solid);
+      position: absolute;
+      font-size: 2rem;
+      opacity: 0;
+      color: white;
+      right: 8%;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    &:hover::after {
+      opacity: 1;
+    }
+
+    &--1 {
+      background: var(--color-red);
+
+      &:hover {
+        background: var(--color-red-light);
+      }
+    }
+
+    &--2 {
+      background: var(--color-blue);
+
+      &:hover {
+        background: var(--color-blue-light);
+      }
+    }
+
+    &--3 {
+      background: var(--color-yellow);
+
+      &:hover {
+        background: var(--color-yellow-light);
+      }
+    }
+
+    &--4 {
+      background: var(--color-green);
+
+      &:hover {
+        background: var(--color-green-light);
+      }
+    }
+  }
+
+  &__shape {
+    background: var(--color-white);
+    width: 2.2rem;
+    height: 2.2rem;
+    margin-right: 1rem;
+
+    &--2 {
+      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    }
+
+    &--3 {
+      @include circle(2.2rem);
+    }
+
+    &--4 {
+      transform: rotate(45deg);
+    }
+  }
+}

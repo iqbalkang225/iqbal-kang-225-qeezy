@@ -2,6 +2,10 @@
   background: var(--color-black);
   height: 6rem;
 
+  @include respond(678px) {
+    padding: 0 3rem;
+  }
+
   @include flex;
 }
 
@@ -9,8 +13,16 @@
   @include flex;
   justify-content: space-between;
 
+  @include respond(900px) {
+    justify-content: center;
+  }
+
   &__icon-box {
     cursor: pointer;
+
+    @include respond(900px) {
+      display: none;
+    }
   }
 
   &__icon {
