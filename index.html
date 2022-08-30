@@ -52,7 +52,7 @@
       <!-- ALL Questions - LEFT SIDE -->
       <aside class="questions__all section__center">
         <!-- QUESTION 1 -->
-        <div class="questions__box">
+        <!-- <div class="questions__box">
           <div class="questions__heading">
             <span class="questions__number">1</span>
             <p>Quiz</p>
@@ -64,130 +64,10 @@
             </div>
             <i class="fa-solid fa-trash-can question__delete"></i>
           </div>
-        </div>
-
-        <!-- QUESTION 2 -->
-        <div class="questions__box">
-          <div class="questions__heading">
-            <span class="questions__number">1</span>
-            <p>Quiz</p>
-          </div>
-          <div class="question__info">
-            <p class="question">What is java?</p>
-            <div class="question__timer-box">
-              <span class="question__timer">20</span>
-            </div>
-            <i class="fa-solid fa-trash-can question__delete"></i>
-          </div>
-        </div>
-
-        <!-- QUESTION 2 -->
-        <div class="questions__box">
-          <div class="questions__heading">
-            <span class="questions__number">1</span>
-            <p>Quiz</p>
-          </div>
-          <div class="question__info">
-            <p class="question">What is java?</p>
-            <div class="question__timer-box">
-              <span class="question__timer">20</span>
-            </div>
-            <i class="fa-solid fa-trash-can question__delete"></i>
-          </div>
-        </div>
-
-        <!-- QUESTION 2 -->
-        <div class="questions__box">
-          <div class="questions__heading">
-            <span class="questions__number">1</span>
-            <p>Quiz</p>
-          </div>
-          <div class="question__info">
-            <p class="question">What is java?</p>
-            <div class="question__timer-box">
-              <span class="question__timer">20</span>
-            </div>
-            <i class="fa-solid fa-trash-can question__delete"></i>
-          </div>
-        </div>
-
-        <!-- QUESTION 2 -->
-        <div class="questions__box">
-          <div class="questions__heading">
-            <span class="questions__number">1</span>
-            <p>Quiz</p>
-          </div>
-          <div class="question__info">
-            <p class="question">What is java?</p>
-            <div class="question__timer-box">
-              <span class="question__timer">20</span>
-            </div>
-            <i class="fa-solid fa-trash-can question__delete"></i>
-          </div>
-        </div>
-
-        <!-- QUESTION 2 -->
-        <div class="questions__box">
-          <div class="questions__heading">
-            <span class="questions__number">1</span>
-            <p>Quiz</p>
-          </div>
-          <div class="question__info">
-            <p class="question">What is java?</p>
-            <div class="question__timer-box">
-              <span class="question__timer">20</span>
-            </div>
-            <i class="fa-solid fa-trash-can question__delete"></i>
-          </div>
-        </div>
-
-        <!-- QUESTION 2 -->
-        <div class="questions__box">
-          <div class="questions__heading">
-            <span class="questions__number">1</span>
-            <p>Quiz</p>
-          </div>
-          <div class="question__info">
-            <p class="question">What is java?</p>
-            <div class="question__timer-box">
-              <span class="question__timer">20</span>
-            </div>
-            <i class="fa-solid fa-trash-can question__delete"></i>
-          </div>
-        </div>
-
-        <!-- QUESTION 2 -->
-        <div class="questions__box">
-          <div class="questions__heading">
-            <span class="questions__number">1</span>
-            <p>Quiz</p>
-          </div>
-          <div class="question__info">
-            <p class="question">What is java?</p>
-            <div class="question__timer-box">
-              <span class="question__timer">20</span>
-            </div>
-            <i class="fa-solid fa-trash-can question__delete"></i>
-          </div>
-        </div>
-
-        <!-- QUESTION 2 -->
-        <div class="questions__box">
-          <div class="questions__heading">
-            <span class="questions__number">1</span>
-            <p>Quiz</p>
-          </div>
-          <div class="question__info">
-            <p class="question">What is java?</p>
-            <div class="question__timer-box">
-              <span class="question__timer">20</span>
-            </div>
-            <i class="fa-solid fa-trash-can question__delete"></i>
-          </div>
-        </div>
+        </div> -->
 
         <div class="question__next-box">
-          <i class="fa-solid fa-plus question__next"></i>
+          <i class="fa-solid fa-plus question__next btn--next"></i>
         </div>
       </aside>
 
@@ -196,7 +76,14 @@
         <div class="section__center questions">
           <div class="questions__header">
             <h4 class="questions__title">quiz name:</h4>
-            <h2 class="questions__name">Tech</h2>
+            <input
+              type="text"
+              class="quiz__name-input"
+              name="quiz__name-input"
+              placeholder="Enter quiz name"
+            />
+            <button class="quiz__name-btn">Submit</button>
+            <!-- <h2 class="questions__name">Tech</h2> -->
           </div>
 
           <form action="" class="questions__form">
@@ -208,21 +95,25 @@
 
             <div class="questions__answers">
               <!-- ANSWER 1 -->
-              <div class="questions__answer questions__answer--1">
+              <div
+                class="questions__answer questions__answer--1"
+                data-color="#ff0000"
+              >
                 <div class="questions__shape-box questions__shape-box--1">
                   <div class="questions__shape questions__shape--1"></div>
                 </div>
 
                 <input
                   type="text"
-                  class="answer__input"
+                  class="answer__input answer__input--1"
                   placeholder="Add answer 1"
+                  required
                 />
 
                 <input
                   type="radio"
                   name="answer"
-                  value=""
+                  value="answer1"
                   class="answer answer--1"
                 />
 
@@ -230,66 +121,75 @@
               </div>
 
               <!-- ANSWER 2 -->
-              <div class="questions__answer questions__answer--2">
+              <div
+                class="questions__answer questions__answer--2"
+                data-color="#0542b9"
+              >
                 <div class="questions__shape-box questions__shape-box--2">
                   <div class="questions__shape questions__shape--2"></div>
                 </div>
 
                 <input
                   type="text"
-                  class="answer__input"
+                  class="answer__input answer__input--2"
                   placeholder="Add answer 2"
                 />
 
                 <input
                   type="radio"
                   name="answer"
-                  value=""
                   class="answer answer--2"
+                  value="answer2"
                 />
 
                 <span class="questions__length">75</span>
               </div>
 
               <!-- ANSWER 3-->
-              <div class="questions__answer questions__answer--3">
+              <div
+                class="questions__answer questions__answer--3"
+                data-color="#f5a23d"
+              >
                 <div class="questions__shape-box questions__shape-box--3">
                   <div class="questions__shape questions__shape--3"></div>
                 </div>
 
                 <input
                   type="text"
-                  class="answer__input"
+                  class="answer__input answer__input--3"
                   placeholder="Add answer 3"
                 />
 
                 <input
                   type="radio"
                   name="answer"
-                  value=""
                   class="answer answer--3"
+                  value="answer3"
                 />
 
                 <span class="questions__length">75</span>
               </div>
 
               <!-- ANSWER 4 -->
-              <div class="questions__answer questions__answer--4">
+              <div
+                class="questions__answer questions__answer--4"
+                data-color="#106b03"
+              >
                 <div class="questions__shape-box questions__shape-box--4">
                   <div class="questions__shape questions__shape--4"></div>
                 </div>
 
                 <input
                   type="text"
-                  class="answer__input"
+                  class="answer__input answer__input--4"
                   placeholder="Add answer 4"
                 />
 
                 <input
                   type="radio"
                   name="answer"
-                  value=""
                   class="answer answer--4"
+                  value="answer4"
                 />
 
                 <span class="questions__length">75</span>
@@ -324,7 +224,7 @@
           <select id="questions__time">
             <option value="5">5 seconds</option>
             <option value="10">10 seconds</option>
-            <option value="20">20 seconds</option>
+            <option value="20" selected="selected">20 seconds</option>
             <option value="30">30 seconds</option>
             <option value="45">45 seconds</option>
             <option value="60">1 minute</option>
@@ -391,6 +291,132 @@
         </div>
       </div>
     </div>
-    <script src="./script.js"></script>
+
+    <div class="container__available">
+      <h2 class="available__title">available quizes</h2>
+
+      <div class="available__quizes-box">
+        <!-- PROJECT ! -->
+        <div class="available__quiz-box">
+          <div class="available__heading">
+            <span class="available__number">1</span>
+            <p>food</p>
+          </div>
+          <div class="available__info">
+            <div class="available__timer-box">
+              <span class="available__timer">20</span>
+            </div>
+            <p class="available__text">questions</p>
+            <i class="fa-solid fa-trash-can available__delete"></i>
+          </div>
+        </div>
+
+        <!-- PROJECT ! -->
+        <div class="available__quiz-box">
+          <div class="available__heading">
+            <span class="available__number">1</span>
+            <p>food</p>
+          </div>
+          <div class="available__info">
+            <div class="available__timer-box">
+              <span class="available__timer">20</span>
+            </div>
+            <p class="available__text">questions</p>
+            <i class="fa-solid fa-trash-can available__delete"></i>
+          </div>
+        </div>
+
+        <!-- PROJECT ! -->
+        <div class="available__quiz-box">
+          <div class="available__heading">
+            <span class="available__number">1</span>
+            <p>food</p>
+          </div>
+          <div class="available__info">
+            <div class="available__questions-box">
+              <span class="available__questions">20</span>
+            </div>
+            <p class="available__text">questions</p>
+            <i class="fa-solid fa-trash-can available__delete"></i>
+          </div>
+        </div>
+
+        <!-- PROJECT ! -->
+        <div class="available__quiz-box">
+          <div class="available__heading">
+            <span class="available__number">1</span>
+            <p>food</p>
+          </div>
+          <div class="available__info">
+            <div class="available__questions-box">
+              <span class="available__questions">20</span>
+            </div>
+            <p class="available__text">questions</p>
+            <i class="fa-solid fa-trash-can available__delete"></i>
+          </div>
+        </div>
+
+        <!-- PROJECT ! -->
+        <div class="available__quiz-box">
+          <div class="available__heading">
+            <span class="available__number">1</span>
+            <p>food</p>
+          </div>
+          <div class="available__info">
+            <div class="available__questions-box">
+              <span class="available__questions">20</span>
+            </div>
+            <p class="available__text">questions</p>
+            <i class="fa-solid fa-trash-can available__delete"></i>
+          </div>
+        </div>
+
+        <!-- PROJECT ! -->
+        <div class="available__quiz-box">
+          <div class="available__heading">
+            <span class="available__number">1</span>
+            <p>food</p>
+          </div>
+          <div class="available__info">
+            <div class="available__timer-box">
+              <span class="available__timer">20</span>
+            </div>
+            <p class="available__text">questions</p>
+            <i class="fa-solid fa-trash-can available__delete"></i>
+          </div>
+        </div>
+
+        <!-- PROJECT ! -->
+        <div class="available__quiz-box">
+          <div class="available__heading">
+            <span class="available__number">1</span>
+            <p>food</p>
+          </div>
+          <div class="available__info">
+            <div class="available__timer-box">
+              <span class="available__timer">20</span>
+            </div>
+            <p class="available__text">questions</p>
+            <i class="fa-solid fa-trash-can available__delete"></i>
+          </div>
+        </div>
+
+        <!-- PROJECT ! -->
+        <div class="available__quiz-box">
+          <div class="available__heading">
+            <span class="available__number">1</span>
+            <p>food</p>
+          </div>
+          <div class="available__info">
+            <div class="available__timer-box">
+              <span class="available__timer">20</span>
+            </div>
+            <p class="available__text">questions</p>
+            <i class="fa-solid fa-trash-can available__delete"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="./js/script.js"></script>
   </body>
 </html>

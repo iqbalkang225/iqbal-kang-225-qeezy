@@ -27,7 +27,7 @@
 
     @include respond(1170px) {
       order: 1;
-      margin-top: 8rem;
+      margin-top: 6rem;
       width: 50%;
     }
   }
@@ -65,7 +65,7 @@
   &__answers {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 4rem;
+    gap: 2rem;
 
     @include respond(678px) {
       display: grid;

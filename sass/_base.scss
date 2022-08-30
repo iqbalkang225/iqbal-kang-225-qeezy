@@ -159,7 +159,7 @@ select {
 
 .main-container {
   height: 100vh;
-  overflow: hidden;
+  // overflow: hidden;
 }
 
 .container__create {
@@ -187,8 +187,10 @@ select {
 }
 
 .container__play {
-  padding: 4rem;
+  padding: 4rem 2rem;
   background: var(--color-black);
+  max-height: calc(100vh - 6rem);
+  transition: var(--transition);
 }
 
 .container__playorcreate {
@@ -197,6 +199,29 @@ select {
   grid-template-columns: 1fr 1fr;
 }
 
-.hidden {
-  display: none;
+.container__available {
+  height: calc(100vh - 6rem);
+  background: var(--color-black);
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    width: 3px;
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--color-gray);
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--color-yellow);
+  }
+
+  @include respond(920px) {
+    overflow: hidden;
+  }
+}
+
+.container__create .disabled {
+  opacity: 0.2;
 }

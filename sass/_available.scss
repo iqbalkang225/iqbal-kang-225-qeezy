@@ -1,0 +1,97 @@
+.available {
+  &__title {
+    text-transform: capitalize;
+    text-align: center;
+    color: var(--color-white);
+    font-size: 3rem;
+
+    @include respond(1170px) {
+      font-size: 3.6rem;
+    }
+  }
+
+  &__quizes-box {
+    width: 70vw;
+    margin: 0 auto;
+    margin-top: 4rem;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 12em);
+    place-content: center;
+    gap: 4rem;
+  }
+  &__quiz-box {
+    width: 12rem;
+    cursor: pointer;
+    color: var(--color-white);
+  }
+
+  &__heading {
+    @include flex;
+    text-transform: capitalize;
+    justify-content: start;
+    margin-bottom: 0.4rem;
+
+    @include respond(1170px) {
+      font-size: 1.2rem;
+    }
+  }
+
+  &__number {
+    margin-right: 0.6rem;
+  }
+}
+
+.available {
+  &__info {
+    background-color: var(--color-red);
+    padding: 0.8rem;
+    border-radius: var(--border-radius);
+    @include flex(column);
+    font-size: 1.6rem;
+
+    @include respond(678px) {
+    }
+
+    @include respond(1170px) {
+      font-size: 1.4rem;
+    }
+
+    &:hover {
+      background: var(--color-red-light);
+    }
+  }
+
+  &__questions-box {
+    border: 1.4px solid var(--color-white);
+    display: inline-block;
+    @include circle(4rem);
+    margin: 0.8rem 0 0.4rem;
+
+    @include respond(1170px) {
+      @include circle(4rem);
+    }
+
+    @include flex;
+  }
+
+  &__text {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+
+  &__delete {
+    align-self: end;
+    margin-right: 0.8rem;
+    font-size: 1rem;
+
+    @include respond(678px) {
+      margin-right: 0.4rem;
+      font-size: 1.2rem;
+    }
+
+    &:hover {
+      color: var(--color-black);
+    }
+  }
+}
