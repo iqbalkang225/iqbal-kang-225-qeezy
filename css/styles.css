@@ -365,7 +365,8 @@ select {
     margin-right: 2rem; }
   .questions__name {
     color: var(--color-yellow);
-    font-size: 6rem; }
+    font-size: 6rem;
+    text-transform: capitalize; }
   .questions__input {
     padding: 1.6rem 1rem;
     margin-bottom: 4rem;
@@ -604,6 +605,9 @@ select {
   font-size: 2rem; }
 
 .play__answers {
+  font-size: 2rem;
+  font-weight: 300;
+  letter-spacing: 1.6px;
   display: grid;
   grid-template-columns: 1fr;
   gap: 2rem; }
