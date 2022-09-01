@@ -30,7 +30,7 @@
     @include flex;
     text-transform: capitalize;
     justify-content: start;
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.8rem;
 
     @include respond(1170px) {
       font-size: 1.2rem;
@@ -44,11 +44,26 @@
 
 .available {
   &__info {
-    background-color: var(--color-red);
     padding: 0.8rem;
     border-radius: var(--border-radius);
     @include flex(column);
     font-size: 1.6rem;
+
+    &--1 {
+      background-color: var(--color-red);
+    }
+
+    &--2 {
+      background-color: var(--color-yellow);
+    }
+
+    &--3 {
+      background-color: var(--color-blue);
+    }
+
+    &--4 {
+      background-color: var(--color-green);
+    }
 
     @include respond(678px) {
     }
@@ -58,7 +73,7 @@
     }
 
     &:hover {
-      background: var(--color-red-light);
+      transform: scale(0.97);
     }
   }
 

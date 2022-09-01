@@ -1,19 +1,19 @@
-import {
-  getDomElement as get,
-  getAllDomElements as getAll,
-} from "./funcUtil.js";
+import { get, getAll } from "./funcUtil.js";
+import domEl from "./domElements.js";
 
-const play = get(".play__heading span");
-const create = get(".create__heading span");
-const playContainer = get(".container__play");
-const createContainer = get(".container__create");
+// const play = get(".play__heading span");
+// const create = get(".create__heading span");
+// const playContainer = get(".container__play");
+// const createContainer = get(".container__create");
+// const availableContainer = get(".container__available");
+// const play = document.querySelector(".play__heading span");
 
-play.addEventListener("click", () => {
-  playContainer.style.transform = "translateY(-200%)";
+domEl.playText.addEventListener("click", (e) => {
+  App.bringToFront(domEl.availableContainer);
 });
 
-create.addEventListener("click", () => {
-  createContainer.style.transform = "translateY(-100%)";
+domEl.createText.addEventListener("click", () => {
+  App.bringToFront(domEl.createContainer);
 });
 
 const answerInputs = getAll(".answer__input");
@@ -45,18 +45,12 @@ answerInputs.forEach((answerInput) => {
 
 //////////////////////////////////////
 
-const nextBtns = getAll(".btn--next");
-const quizNameInput = get(".quiz__name-input");
-const quizNameBtn = get(".quiz__name-btn");
-
-// const allQuestionsContainer = document.querySelector(".questions__all");
-const allQuestionsContainer = get(".questions__all");
-const quizesContainer = get(".available__quizes-box");
-const finishBtns = getAll(".btn--finish");
 const playQuestionTitle = get(".play__title");
 const playQuestionTime = get(".play__time");
 const playScore = get(".play__score");
 const playAnswers = getAll(".play__answer");
+
+/////////////////////////////////////
 
 class Quiz {
   constructor(qName) {
@@ -66,12 +60,12 @@ class Quiz {
   displayQuizName() {
     const questionsHeader = get(".questions__header");
 
-    quizNameInput.style.display = "none";
-    quizNameBtn.style.display = "none";
+    domEl.quizNameInput.style.display = "none";
+    domEl.quizNameBtn.style.display = "none";
 
     const quizHeading = document.createElement("h2");
     quizHeading.setAttribute("class", "questions__name");
-    quizHeading.textContent = quizNameInput.value;
+    quizHeading.textContent = domEl.quizNameInput.value;
     questionsHeader.appendChild(quizHeading);
   }
 }
@@ -97,21 +91,24 @@ class Question {
     this.questionType = questionType;
     this.questionTime = questionTime;
     this.questionPoints = questionPoints;
-    this.questionId = Math.ceil(Math.random() * 100);
+    this.questionId = Math.ceil(Math.random() * 500);
   }
 }
 
 class App {
   constructor() {
     this.currentQuizName = "";
+    this.quizQuestions = [];
     this.score = 0;
     this.currentQuestion = 0;
+    this.selectedAnswer = "";
+    this.resetTimer;
 
     this.quizes = [
       {
         tech: [
           {
-            questionTitle: "What is java?",
+            questionTitle: "What is java? 1",
             answer1: "A language",
             answer2: "A compiler",
             answer3: "An interpreter",
@@ -123,12 +120,63 @@ class App {
             questionId: 28,
           },
           {
-            questionTitle: "What is c++?",
+            questionTitle: "What is c++? 2",
             answer1: "A software",
             answer2: "A movie",
             answer3: "A software",
             answer4: "A place",
             correctAnswer: "answer3",
+            questionTime: 20,
+            questionType: "trueorfalse",
+            questionPoints: "double",
+            questionId: 18,
+          },
+          {
+            questionTitle: "What is c++? 3",
+            answer1: "A software",
+            answer2: "A movie",
+            answer3: "A software",
+            answer4: "A place",
+            correctAnswer: "answer3",
+            questionTime: 10,
+            questionType: "trueorfalse",
+            questionPoints: "double",
+            questionId: 18,
+          },
+
+          {
+            questionTitle: "What is phone? 4",
+            answer1: "A bubble",
+            answer2: "pj10",
+            answer3: "crypto",
+            answer4: "laptop",
+            correctAnswer: "answer3",
+            questionTime: 10,
+            questionType: "trueorfalse",
+            questionPoints: "double",
+            questionId: 18,
+          },
+
+          {
+            questionTitle: "What is c# 5",
+            answer1: "A mech",
+            answer2: "A tech",
+            answer3: "A food",
+            answer4: "An animal",
+            correctAnswer: "answer2",
+            questionTime: 5,
+            questionType: "trueorfalse",
+            questionPoints: "double",
+            questionId: 18,
+          },
+
+          {
+            questionTitle: "What is compiler? 6",
+            answer1: "A phone",
+            answer2: "A company",
+            answer3: "A person",
+            answer4: "A food",
+            correctAnswer: "answer4",
             questionTime: 5,
             questionType: "trueorfalse",
             questionPoints: "double",
@@ -155,28 +203,37 @@ class App {
 
     // this.populateQuestions();
     // this.disbaleInputs();
-    this.fetchQuestion();
+    // this.fetchQuestion();
 
-    quizNameBtn.addEventListener("click", () => {
-      if (!quizNameInput.value) return;
+    this.getLocalStorage();
 
-      const quiz = new Quiz(quizNameInput.value);
+    this.renderQuizes();
+
+    // EVENT LISTENERS
+    domEl.quizNameBtn.addEventListener("click", () => {
+      const userEntered = domEl.quizNameInput.value;
+
+      if (!userEntered) return;
+
+      const quiz = new Quiz(userEntered);
 
       quiz.displayQuizName();
 
-      this.currentQuizName = quizNameInput.value;
+      this.currentQuizName = userEntered;
 
       this.quizes.push(quiz);
 
       this.enableInputs();
     });
 
-    nextBtns.forEach((btn) => {
+    domEl.nextBtns.forEach((btn) => {
       btn.addEventListener("click", () => {
         if (!this.formValidate()) {
-          alert("Please Fill out the form");
+          // questionsForm.textContent = "";
+          this.displayPopup();
           return;
         }
+
         this.addNewQuestion();
 
         this.renderQuestions();
@@ -185,30 +242,79 @@ class App {
       });
     });
 
-    allQuestionsContainer.addEventListener("click", (e) => {
+    domEl.finishBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        if (!this.formValidate()) {
+          alert("Please Fill out the form");
+          return;
+        }
+        console.log(this);
+        App.bringToFront(domEl.availableContainer);
+
+        this.addNewQuestion();
+
+        this.renderQuestions();
+
+        this.setLocalStorage();
+
+        this.renderQuizes();
+
+        this.reset();
+      });
+    });
+
+    domEl.allQuestionsContainer.addEventListener("click", (e) => {
       this.deleteQuestion(e);
       this.selectQuestion(e);
     });
 
+    domEl.quizesContainer.addEventListener("click", (e) => {
+      App.bringToFront(domEl.playContainer);
+      this.selectQuiz(e);
+      this.deleteQuiz(e);
+    });
+
+    domEl.submitQuestion.addEventListener("click", () => {
+      if (this.currentQuestion >= this.quizQuestions.length - 1) return;
+      clearInterval(this.resetTimer);
+      this.checkAnswer();
+      this.currentQuestion++;
+      this.fetchQuestion();
+      this.questionTimer();
+    });
+
     playAnswers.forEach((answer) => {
       answer.addEventListener("click", (e) => {
-        this.checkAnswer(e);
+        this.selectAnswer(e);
       });
     });
+  }
 
-    finishBtns.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        quizesContainer.textContent = "";
+  static bringToFront(container) {
+    const containers = [
+      domEl.playContainer,
+      domEl.createContainer,
+      domEl.availableContainer,
+    ];
 
-        this.quizes.forEach((quiz) => {
-          const quizObject = Object.entries(quiz);
+    containers.forEach((container) =>
+      container.classList.remove("bring-to-front")
+    );
 
-          for (let [quizName, questions] of quizObject) {
-            this.displayQuiz(quizName, questions);
-          }
-        });
-      });
-    });
+    container.classList.add("bring-to-front");
+  }
+
+  setLocalStorage() {
+    localStorage.setItem("quizes", JSON.stringify(this.quizes));
+  }
+
+  getLocalStorage() {
+    const data = JSON.parse(localStorage.getItem("quizes"));
+    console.log(data);
+
+    if (!data) return;
+
+    this.quizes = data;
   }
 
   populateQuestions() {
@@ -248,48 +354,127 @@ class App {
         </div>
       </div>
     `;
-    containerPlay.insertAdjacentHTML("beforeend", html);
+    playContainer.insertAdjacentHTML("beforeend", html);
   }
 
-  fetchQuestion() {
-    let questionsData = this.quizes[0].tech;
+  selectQuiz(e) {
+    let selectedQuizName = e.target.closest(".available__quiz-box").dataset
+      .quiz;
 
-    playQuestionTime.textContent =
-      questionsData[this.currentQuestion].questionTime;
-    playScore.textContent = this.score;
-    playQuestionTitle.textContent =
-      questionsData[this.currentQuestion].questionTitle;
-    playAnswers.forEach((answer, index) => {
-      if (index == 0)
-        answer.textContent = questionsData[this.currentQuestion].answer1;
-      if (index == 1)
-        answer.textContent = questionsData[this.currentQuestion].answer2;
-      if (index == 2)
-        answer.textContent = questionsData[this.currentQuestion].answer3;
-      if (index == 3)
-        answer.textContent = questionsData[this.currentQuestion].answer4;
+    const selectedQuiz = this.quizes.find((quiz) => {
+      const quizObject = Object.entries(quiz);
+
+      for (let [quizName, questions] of quizObject) {
+        return quizName === selectedQuizName;
+      }
     });
+
+    this.quizQuestions = selectedQuiz[selectedQuizName];
+
+    this.fetchQuestion();
+    this.questionTimer();
   }
 
-  checkAnswer(e) {
-    let questionsData = this.quizes[0].tech;
-    const selectedAnswer = e.target.dataset.selected;
+  deleteQuiz(e) {
+    if (e.target.classList.contains("available__delete")) {
+      const deleteQuizName = e.target.closest(".available__quiz-box").dataset
+        .quiz;
 
-    if (selectedAnswer === questionsData[this.currentQuestion].correctAnswer) {
-      this.score += 100;
-      this.currentQuestion++;
-      this.fetchQuestion();
+      const remainingQuizes = this.quizes.filter((quiz) => {
+        const quizObject = Object.entries(quiz);
+
+        for (let [quizName, questions] of quizObject) {
+          return quizName !== deleteQuizName;
+        }
+      });
+      this.quizes = remainingQuizes;
+      this.setLocalStorage();
+      this.renderQuizes();
     }
   }
 
-  displayQuiz(quizName, questions) {
+  questionTimer() {
+    let timeLeft = this.quizQuestions[this.currentQuestion].questionTime;
+    this.resetTimer = setInterval(() => {
+      timeLeft--;
+      playQuestionTime.textContent = timeLeft;
+      if (timeLeft === 0) {
+        clearInterval(this.resetTimer);
+        this.checkAnswer();
+      }
+    }, 1000);
+  }
+
+  fetchQuestion() {
+    console.log(this.currentQuestion);
+
+    playQuestionTime.textContent =
+      this.quizQuestions[this.currentQuestion].questionTime;
+    playScore.textContent = this.score;
+    playQuestionTitle.textContent =
+      this.quizQuestions[this.currentQuestion].questionTitle;
+    playAnswers.forEach((answer, index) => {
+      if (index == 0)
+        answer.textContent = this.quizQuestions[this.currentQuestion].answer1;
+      if (index == 1)
+        answer.textContent = this.quizQuestions[this.currentQuestion].answer2;
+      if (index == 2)
+        answer.textContent = this.quizQuestions[this.currentQuestion].answer3;
+      if (index == 3)
+        answer.textContent = this.quizQuestions[this.currentQuestion].answer4;
+    });
+  }
+
+  selectAnswer(e) {
+    this.selectedAnswer = e.target.dataset.selected;
+  }
+
+  checkAnswer() {
+    // if (this.currentQuestion === this.quizQuestions.length - 1) return;
+
+    if (
+      this.selectedAnswer ===
+      this.quizQuestions[this.currentQuestion].correctAnswer
+    ) {
+      this.score += 100;
+    } else {
+      console.log("wrong answer");
+    }
+
+    this.changeColors();
+  }
+
+  changeColors() {
+    playAnswers.forEach((answer) => {
+      // answer.dataset.selected = this.selectedAnswer;
+      answer.style.background = "red";
+    });
+  }
+
+  renderQuizes() {
+    domEl.quizesContainer.textContent = "";
+
+    console.log(this.quizes);
+
+    this.quizes.forEach((quiz, index) => {
+      const quizObject = Object.entries(quiz);
+
+      for (let [quizName, questions] of quizObject) {
+        this.displayQuiz(quizName, questions, index);
+      }
+    });
+  }
+
+  displayQuiz(quizName, questions, index) {
+    let color = Math.ceil(Math.random() * 4);
+
     let html = `
-    <div class="available__quiz-box">
+    <div class="available__quiz-box" data-quiz="${quizName}">
           <div class="available__heading">
-            <span class="available__number">1</span>
+            <span class="available__number">${index + 1}</span>
             <p>${quizName}</p>
           </div>
-          <div class="available__info">
+          <div class="available__info available__info--${color}">
             <div class="available__questions-box">
               <span class="available__questions">${questions.length}</span>
             </div>
@@ -298,26 +483,26 @@ class App {
           </div>
         </div>`;
 
-    quizesContainer.insertAdjacentHTML("beforeend", html);
+    domEl.quizesContainer.insertAdjacentHTML("beforeend", html);
   }
 
   enableInputs() {
-    const inputs = getAll("input");
-    const selects = getAll("select");
-    const container = get(".container__create");
-    const questionsForm = get(".questions__form");
+    domEl.inputs.forEach((input) => (input.disabled = false));
 
-    inputs.forEach((input) => (input.disabled = false));
-    selects.forEach((select) => (select.disabled = false));
-    questionsForm.classList.remove("disabled");
-    for (let child of container.children) child.classList.remove("disabled");
+    domEl.selects.forEach((select) => (select.disabled = false));
+
+    domEl.questionsForm.classList.remove("disabled");
+
+    for (let child of domEl.container.children)
+      child.classList.remove("disabled");
   }
 
   disbaleInputs() {
     const inputs = getAll("input:not([name = 'quiz__name-input'])");
-    const selects = getAll("select");
+
     inputs.forEach((input) => (input.disabled = true));
-    selects.forEach((select) => (select.disabled = true));
+
+    domEl.selects.forEach((select) => (select.disabled = true));
   }
 
   formValidate() {
@@ -347,8 +532,6 @@ class App {
       "input[type = 'text']:not([name = 'quiz__name-input'])"
     );
 
-    const selects = getAll("select");
-
     const selectedRadio = get('input[type="radio"]:checked');
 
     let questionTitle,
@@ -371,7 +554,7 @@ class App {
       if (index === 4) answer4 = input.value;
     });
 
-    selects.forEach((select, index) => {
+    domEl.selects.forEach((select, index) => {
       if (index === 0) questionType = select.value;
       if (index === 1) questionTime = select.value;
       if (index === 2) questionPoints = select.value;
@@ -393,7 +576,7 @@ class App {
 
     // return question;
 
-    console.log(this.quizes);
+    // console.log(this.quizes);
   }
 
   currentQuizArr() {
@@ -405,7 +588,7 @@ class App {
   }
 
   renderQuestions() {
-    allQuestionsContainer.textContent = "";
+    domEl.allQuestionsContainer.textContent = "";
 
     this.currentQuizArr().forEach((question, index) => {
       this.displayQuestion(question, index);
@@ -431,7 +614,7 @@ class App {
             <i class="fa-solid fa-trash-can question__delete" data-id="${questionId}"></i>
           </div>
         </div>`;
-    allQuestionsContainer.insertAdjacentHTML("beforeend", html);
+    domEl.allQuestionsContainer.insertAdjacentHTML("beforeend", html);
   }
 
   deleteQuestion(e) {
@@ -460,7 +643,6 @@ class App {
 
   reset() {
     const inputs = getAll("input[type = 'text']");
-    const selects = getAll("select");
     const selectedRadio = get('input[type="radio"]:checked');
 
     inputs.forEach((input) => (input.value = ""));
@@ -470,6 +652,17 @@ class App {
     answerInputs.forEach((inputEl) => {
       changeAnswerInputBg(inputEl, "#fff", "none");
     });
+
+    // domEl.selects.forEach((select) => {
+    //   select.value = select.selected;
+    // });
+  }
+
+  displayPopup() {
+    const popupBox = document.createElement("p");
+    popupBox.textContent = "Please complete the form";
+    popupBox.setAttribute("class", "notification-popup");
+    domEl.questionsForm.append(popupBox);
   }
 }
 

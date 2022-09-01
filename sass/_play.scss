@@ -9,7 +9,24 @@
     }
 
     @include respond(1170px) {
-      @include flex(column);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      place-items: center;
+      column-gap: 6rem;
+    }
+  }
+
+  &__submit {
+    @include respond(1170px) {
+      margin-bottom: 1rem;
+      justify-self: start;
+      order: 1;
+      background-color: transparent;
+      outline: 2px solid var(--color-yellow);
+
+      &:hover {
+        transform: scale(0.97);
+      }
     }
   }
 
@@ -20,6 +37,7 @@
     border-radius: var(--border-radius);
     text-align: center;
     font-weight: 300;
+    grid-column: 1 / -1;
 
     @include respond(678px) {
       width: 70%;
@@ -33,6 +51,7 @@
   }
 
   &__info {
+    place-self: end;
     @include flex(column);
     color: var(--color-white);
 
