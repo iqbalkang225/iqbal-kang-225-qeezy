@@ -26,4 +26,13 @@ export default {
   availableContainer: get(".container__available"),
   playBtn: get(".play__next"),
   playOrCreate: get(".container__playorcreate"),
+  playPopup: get(".play__question-popup"),
+  playBar: get(".play__bar"),
+
+  winnerPopup: get(".play__winner-popup"),
+  winnerClose: get(".play__winner-close"),
+  winnerScore: get(".play__winner-score"),
+  winnerPercentage: get(".play__winner-percentage"),
+  winnerCorrect: get(".play__winner-correct"),
+  winnerTotal: get(".play__winner-total"),
 };

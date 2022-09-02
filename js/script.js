@@ -1,13 +1,6 @@
 import { get, getAll } from "./funcUtil.js";
 import domEl from "./domElements.js";
 
-// const play = get(".play__heading span");
-// const create = get(".create__heading span");
-// const playContainer = get(".container__play");
-// const createContainer = get(".container__create");
-// const availableContainer = get(".container__available");
-// const play = document.querySelector(".play__heading span");
-
 domEl.playText.addEventListener("click", (e) => {
   App.bringToFront(domEl.availableContainer);
 });
@@ -63,7 +56,7 @@ answerInputs.forEach((answerInput) => {
 
 //////////////////////////////////////
 
-const playQuestionTitle = get(".play__title");
+const playQuestionTitles = getAll(".play__title");
 const playQuestionTime = get(".play__time");
 const playScore = get(".play__score");
 const playAnswers = getAll(".play__answer");
@@ -98,7 +91,7 @@ class Question {
     correctAnswer,
     questionType = "quiz",
     questionTime = "20",
-    questionPoints = "standard"
+    questionPoints = 100
   ) {
     this.questionTitle = questionTitle;
     this.answer1 = answer1;
@@ -121,6 +114,14 @@ class App {
     this.currentQuestion = 0;
     this.selectedAnswer;
     this.resetTimer;
+    this.correctlyAnswered = 0;
+
+    this.sounds = {
+      clockAudio: new Audio("../audio/playing.wav"),
+      success: new Audio("../audio/success-1.mp3"),
+      failure: new Audio("../audio/failure.mp3"),
+      over: new Audio("./audio/over.mp3"),
+    };
 
     this.quizes = [
       {
@@ -134,7 +135,7 @@ class App {
             correctAnswer: "answer1",
             questionType: "quiz",
             questionTime: 5,
-            questionPoints: "standard",
+            questionPoints: 100,
             questionId: 28,
           },
           {
@@ -146,7 +147,7 @@ class App {
             correctAnswer: "answer3",
             questionTime: 4,
             questionType: "trueorfalse",
-            questionPoints: "double",
+            questionPoints: 200,
             questionId: 18,
           },
           {
@@ -158,7 +159,7 @@ class App {
             correctAnswer: "answer3",
             questionTime: 10,
             questionType: "trueorfalse",
-            questionPoints: "double",
+            questionPoints: 200,
             questionId: 18,
           },
 
@@ -171,7 +172,7 @@ class App {
             correctAnswer: "answer3",
             questionTime: 10,
             questionType: "trueorfalse",
-            questionPoints: "double",
+            questionPoints: 200,
             questionId: 18,
           },
 
@@ -184,7 +185,7 @@ class App {
             correctAnswer: "answer2",
             questionTime: 5,
             questionType: "trueorfalse",
-            questionPoints: "double",
+            questionPoints: 200,
             questionId: 18,
           },
 
@@ -197,7 +198,7 @@ class App {
             correctAnswer: "answer4",
             questionTime: 5,
             questionType: "trueorfalse",
-            questionPoints: "double",
+            questionPoints: 200,
             questionId: 18,
           },
         ],
@@ -212,7 +213,7 @@ class App {
             answer4: "A software",
             correctAnswer: "answer1",
             questionType: "quiz",
-            questionPoints: "standard",
+            questionPoints: 100,
             questionId: 28,
           },
         ],
@@ -295,27 +296,52 @@ class App {
 
       App.bringToFront(domEl.playContainer);
       this.selectQuiz(e);
+
+      this.questionPopup();
     });
 
     domEl.submitQuestion.addEventListener("click", () => {
-      if (this.currentQuestion >= this.quizQuestions.length - 1) return;
       clearInterval(this.resetTimer);
       this.changeColors();
       this.checkAnswer();
-      domEl.playBtn.style.display = "block";
+      this.sounds.clockAudio.pause();
       domEl.submitQuestion.style.display = "none";
+      domEl.playBtn.style.display = "block";
     });
 
     domEl.playBtn.addEventListener("click", () => {
-      if (this.currentQuestion >= this.quizQuestions.length - 1) return;
+      if (this.currentQuestion >= this.quizQuestions.length - 1) {
+        this.winnerPopup();
+        domEl.winnerPopup.classList.add("play__winner-show");
+        this.sounds.over.play();
+        return;
+      }
       this.removeColors();
       this.removeSelected();
       this.currentQuestion++;
       this.fetchQuestion();
-      this.questionTimer();
+      // this.questionTimer();
+
+      for (let sound in this.sounds) {
+        this.sounds[sound].pause();
+      }
 
       domEl.playBtn.style.display = "none";
       domEl.submitQuestion.style.display = "block";
+
+      this.questionPopup();
+    });
+
+    domEl.winnerClose.addEventListener("click", () => {
+      domEl.winnerPopup.classList.remove("play__winner-show");
+      this.resetValues();
+      this.removeColors();
+      this.removeSelected();
+
+      domEl.playBtn.style.display = "none";
+      domEl.submitQuestion.style.display = "block";
+
+      App.bringToFront(domEl.availableContainer);
     });
 
     playAnswers.forEach((answer) => {
@@ -324,7 +350,16 @@ class App {
 
     domEl.headerLogo.addEventListener("click", () => {
       App.bringToFront(domEl.playOrCreate);
+
+      this.removeColors();
+      this.removeSelected();
+
       this.resetValues();
+
+      domEl.playBtn.style.display = "none";
+      domEl.submitQuestion.style.display = "block";
+
+      playScore.textContent = this.score;
     });
   }
 
@@ -348,53 +383,13 @@ class App {
 
   getLocalStorage() {
     const data = JSON.parse(localStorage.getItem("quizes"));
-    console.log(data);
 
     if (!data) return;
 
     this.quizes = data;
   }
 
-  // populateQuestions() {
-  //   let html = `
-  //   <div class="play__slide">
-  //       <div class="play__header">
-  //         <h2 class="play__title">What is java?</h2>
-
-  //         <div class="play__info">
-  //           <div class="play__timer-box">
-  //             <span class="play__time">20</span>
-  //           </div>
-  //           <h4>score: <span class="play__score">500 </span></h4>
-  //         </div>
-  //       </div>
-
-  //       <div class="play__answers">
-  //         <div class="play__answer play__answer--1">
-  //           <div class="play__shape play__shape--1"></div>
-  //           <p class="play__selected">Answer</p>
-  //         </div>
-
-  //         <div class="play__answer play__answer--2">
-  //           <div class="play__shape play__shape--2"></div>
-  //           <p class="play__selected">Answer</p>
-  //         </div>
-
-  //         <div class="play__answer play__answer--3">
-  //           <div class="play__shape play__shape--3"></div>
-  //           <p class="play__selected">Answer</p>
-  //         </div>
-
-  //         <div class="play__answer play__answer--4">
-  //           <div class="play__shape play__shape--4"></div>
-  //           <p class="play__selected">Answer</p>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   `;
-  //   playContainer.insertAdjacentHTML("beforeend", html);
-  // }
-
+  ///////////////////////////
   selectQuiz(e) {
     let selectedQuizName = e.target.closest(".available__quiz-box").dataset
       .quiz;
@@ -410,7 +405,7 @@ class App {
     this.quizQuestions = selectedQuiz[selectedQuizName];
 
     this.fetchQuestion();
-    this.questionTimer();
+    // this.questionTimer();
   }
 
   deleteQuiz(e) {
@@ -428,26 +423,43 @@ class App {
     this.setLocalStorage();
     this.renderQuizes();
   }
-
+  ///////////////////////////
   questionTimer() {
     let timeLeft = this.quizQuestions[this.currentQuestion].questionTime;
+
+    this.sounds.clockAudio.play();
+
     this.resetTimer = setInterval(() => {
       timeLeft--;
       playQuestionTime.textContent = timeLeft;
       if (timeLeft === 0) {
         clearInterval(this.resetTimer);
+        this.sounds.clockAudio.pause();
         this.checkAnswer();
         this.changeColors();
+
+        domEl.submitQuestion.style.display = "none";
+        domEl.playBtn.style.display = "block";
       }
     }, 1000);
   }
 
   fetchQuestion() {
+    const points = +this.quizQuestions[this.currentQuestion].questionPoints;
+
+    if (points === 100) playScore.textContent = "Standard";
+    if (points === 200) playScore.textContent = "Double";
+    if (points === 0) playScore.textContent = "No points";
+
     playQuestionTime.textContent =
       this.quizQuestions[this.currentQuestion].questionTime;
 
-    playQuestionTitle.textContent =
-      this.quizQuestions[this.currentQuestion].questionTitle;
+    playQuestionTitles.forEach(
+      (title) =>
+        (title.textContent =
+          this.quizQuestions[this.currentQuestion].questionTitle)
+    );
+
     playAnswers.forEach((answer, index) => {
       if (index == 0)
         answer.textContent = this.quizQuestions[this.currentQuestion].answer1;
@@ -471,14 +483,24 @@ class App {
   }
 
   checkAnswer() {
-    console.log(this.quizQuestions[this.currentQuestion].correctAnswer);
+    const points = +this.quizQuestions[this.currentQuestion].questionPoints;
+    console.log(points);
     if (
       this.selectedAnswer ===
       this.quizQuestions[this.currentQuestion].correctAnswer
     ) {
-      this.score += 100;
-      playScore.textContent = this.score;
+      if (points === 100) this.score += 100;
+      if (points === 200) this.score += 200;
+      if (points === 0) this.score += 0;
+
+      this.sounds.success.load();
+      this.sounds.success.play();
+      // this.score += 100;
+      this.correctlyAnswered++;
+      // playScore.textContent = this.score;
     } else {
+      this.sounds.failure.load();
+      this.sounds.failure.play();
     }
   }
 
@@ -713,6 +735,7 @@ class App {
     this.currentQuestion = 0;
     this.selectedAnswer;
     this.resetTimer;
+    this.correctlyAnswered = 0;
   }
 
   displayPopup(message) {
@@ -720,6 +743,27 @@ class App {
     popupBox.textContent = message;
     popupBox.setAttribute("class", "notification-popup");
     domEl.questionsForm.append(popupBox);
+  }
+
+  questionPopup() {
+    this.fetchQuestion();
+
+    domEl.playPopup.classList.add("play__popup-show");
+    domEl.playBar.classList.add("play__bar-grow");
+
+    setTimeout(() => {
+      domEl.playPopup.classList.remove("play__popup-show");
+      this.questionTimer();
+    }, 3000);
+  }
+
+  winnerPopup() {
+    domEl.winnerTotal.textContent = this.quizQuestions.length;
+    domEl.winnerScore.textContent = this.score;
+    domEl.winnerCorrect.textContent = this.correctlyAnswered;
+    domEl.winnerPercentage.innerText = Math.trunc(
+      (this.correctlyAnswered / this.quizQuestions.length) * 100
+    );
   }
 }
 

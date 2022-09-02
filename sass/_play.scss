@@ -183,4 +183,106 @@
       transform: rotate(45deg);
     }
   }
+
+  &__question-popup {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-black);
+    display: none;
+  }
+
+  &__popup-title {
+    margin: 20rem auto;
+  }
+
+  &__bar {
+    height: 2rem;
+
+    background-color: var(--color-blue);
+    margin-bottom: 5rem;
+    border-radius: 10px;
+  }
+
+  &__popup-show {
+    display: block;
+  }
+
+  &__bar-grow {
+    animation: bar-grow 3s linear;
+  }
+
+  &__winner-popup {
+    color: var(--color-white);
+    font-size: 2rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: var(--color-black);
+    display: none;
+  }
+
+  &__winner-close {
+    position: absolute;
+    right: 4rem;
+    top: 2rem;
+    font-size: 4rem;
+    color: var(--color-red-light);
+    cursor: pointer;
+
+    &:hover {
+      color: var(--color-red);
+    }
+
+    & > i {
+      pointer-events: none;
+    }
+  }
+
+  &__winner-header {
+    font-size: 4rem;
+
+    @include flex;
+  }
+
+  &__winner-scorebox {
+    border: 2px solid var(--color-yellow);
+    @include circle(12rem);
+    @include flex;
+    font-weight: 700;
+
+    &:first-child {
+      margin-right: 3rem;
+    }
+  }
+
+  &__winner-percent {
+    font-size: 1.6rem;
+  }
+
+  &__winner-title {
+    margin: 2rem 0 6rem;
+  }
+
+  &__winner-correct {
+    color: var(--color-red);
+  }
+
+  &__winner-show {
+    @include flex(column);
+  }
+}
+
+@keyframes bar-grow {
+  0% {
+    width: 0;
+  }
+
+  100% {
+    width: 100%;
+  }
 }

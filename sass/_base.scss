@@ -188,6 +188,7 @@ select {
 }
 
 .main-container > *:not(.container__playorcreate) {
+  height: 100%;
   position: absolute;
   left: 100%;
   top: 0;
@@ -220,6 +221,7 @@ select {
 .container__play {
   padding: 4rem 2rem;
   background: var(--color-black);
+  position: relative;
   // max-height: calc(100vh - 6rem);
 }
 
