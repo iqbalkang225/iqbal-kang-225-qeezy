@@ -33,7 +33,9 @@
           <div class="header__icon"></div>
         </div>
 
-        <h1 class="header__logo">queezy</h1>
+        <div class="header__cursor"></div>
+
+        <h1 class="header__logo">qeezy</h1>
 
         <button class="btn btn--finish btn--finish-1">finish</button>
       </div>
@@ -51,7 +53,7 @@
 
       <div class="container__create">
         <!-- ALL Questions - LEFT SIDE -->
-        <aside class="questions__all section__center">
+        <aside class="questions__all section__center disabled">
           <!-- QUESTION 1 -->
           <!-- <div class="questions__box">
             <div class="questions__heading">
@@ -83,11 +85,11 @@
                 name="quiz__name-input"
                 placeholder="Enter quiz name"
               />
-              <button class="quiz__name-btn">Submit</button>
+              <button class="btn quiz__name-btn">Submit</button>
               <!-- <h2 class="questions__name">Tech</h2> -->
             </div>
 
-            <form action="" class="questions__form">
+            <form action="" class="questions__form disabled">
               <input
                 type="text"
                 class="questions__input"
@@ -201,7 +203,7 @@
         </section>
 
         <!-- QUESTIONS OPTIONS - RIGHT SIDE -->
-        <aside class="questions__options">
+        <aside class="questions__options disabled">
           <!-- QUESTIONS OPTION - 1 -->
           <div class="questions__option">
             <label for="questions__type">
@@ -264,13 +266,14 @@
         <div class="play__slide">
           <div class="play__header">
             <button class="btn play__submit">Submit</button>
+            <button class="btn play__next">Next</button>
             <h2 class="play__title">What is java?</h2>
 
             <div class="play__info">
               <div class="play__timer-box">
                 <span class="play__time">20</span>
               </div>
-              <h4>score: <span class="play__score">500 </span></h4>
+              <h4>score: <span class="play__score">0 </span></h4>
             </div>
           </div>
 

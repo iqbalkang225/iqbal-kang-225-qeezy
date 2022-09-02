@@ -4,6 +4,7 @@
     text-align: center;
     color: var(--color-white);
     font-size: 3rem;
+    margin: 4rem 0;
 
     @include respond(1170px) {
       font-size: 3.6rem;
@@ -13,7 +14,6 @@
   &__quizes-box {
     width: 70vw;
     margin: 0 auto;
-    margin-top: 4rem;
 
     display: grid;
     grid-template-columns: repeat(auto-fill, 12em);

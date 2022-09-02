@@ -17,6 +17,17 @@
   flex-direction: $direction;
 }
 
+@mixin psuedo($type) {
+  content: $type;
+  font: var(--fa-font-solid);
+  position: absolute;
+  font-size: 4rem;
+  color: white;
+  right: 8%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -53,6 +64,10 @@ html {
 body {
   color: var(--color-gray);
   font-family: var(--font-family);
+}
+
+ul {
+  list-style-type: none;
 }
 
 .section__center {
@@ -157,26 +172,26 @@ select {
   }
 }
 
-// .main-container {
-//   display: flex;
-//   width: 100vw;
-//   min-height: calc(100vh - 6rem);
-//   position: relative;
-// overflow-x: hidden;
-// overflow: hidden;
-// }
+.main-container {
+  display: flex;
+  width: 100vw;
+  min-height: calc(100vh - 6rem);
+  position: relative;
+  overflow-x: hidden;
+  overflow: hidden;
+}
 
-// .main-container > * {
-//   width: 100%;
-//   flex-shrink: 0;
-//   // transition: var(--transition);
-// }
+.main-container > * {
+  width: 100%;
+  flex-shrink: 0;
+  // transition: var(--transition);
+}
 
-// .main-container > *:not(.container__playorcreate) {
-//   position: absolute;
-//   left: 100%;
-//   top: 0;
-// }
+.main-container > *:not(.container__playorcreate) {
+  position: absolute;
+  left: 100%;
+  top: 0;
+}
 
 .container__create {
   background: var(--color-black);
@@ -238,12 +253,51 @@ select {
 }
 
 .container__create .disabled {
-  opacity: 0.2;
+  opacity: 0.4;
 }
 
 .bring-to-front {
   left: 0 !important;
   z-index: 10 !important;
+}
+
+.selected-answer {
+  transform: scale(0.98);
+  opacity: 0.8;
+
+  &::before {
+    @include psuedo("\f00c");
+    opacity: 1;
+  }
+}
+
+.wrong-answer {
+  background-color: orangered !important;
+  pointer-events: none;
+
+  &::before {
+    @include psuedo("\f00d");
+  }
+}
+
+.correct-answer {
+  background-color: rgb(84, 123, 25) !important;
+  position: relative;
+
+  &::before {
+    @include psuedo("\f00c");
+  }
+}
+
+.cursor-grow {
+  transform: scale(3);
+  transition: all 0.1s linear;
+  background-color: white !important;
+  color: var(--color-black);
+}
+
+.text-black {
+  color: var(--color-black) !important;
 }
 
 .notification-popup {
@@ -276,4 +330,9 @@ select {
   100% {
     bottom: 0%;
   }
+}
+
+.questions__options.disabled .btn--next,
+.questions__options.disabled .btn--finish {
+  pointer-events: none;
 }

@@ -13,7 +13,7 @@
 
   &__header {
     @include flex;
-    align-items: baseline;
+    align-items: center;
     margin: 8rem 0 4rem;
   }
 
@@ -161,5 +161,23 @@
     &:checked::before {
       opacity: 1;
     }
+  }
+}
+
+.quiz__name-input {
+  padding: 1rem;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  width: 30%;
+}
+
+.quiz__name-btn {
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  background: linear-gradient(to left, #0542b9, #1450c8);
+  border: none;
+
+  &:hover {
+    background: linear-gradient(to right, #0542b9, #1450c8);
   }
 }

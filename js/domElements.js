@@ -1,5 +1,8 @@
 import { get, getAll } from "./funcUtil.js";
 export default {
+  headerContainer: get(".header"),
+  cursor: get(".header__cursor"),
+  headerLogo: get(".header__logo"),
   // QUESTION HEADING ElEMENTS
   nextBtns: getAll(".btn--next"),
   quizNameInput: get(".quiz__name-input"),
@@ -21,4 +24,6 @@ export default {
   playContainer: get(".container__play"),
   createContainer: get(".container__create"),
   availableContainer: get(".container__available"),
+  playBtn: get(".play__next"),
+  playOrCreate: get(".container__playorcreate"),
 };

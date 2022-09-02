@@ -1,6 +1,8 @@
 #header {
   background: var(--color-black);
   height: 6rem;
+  position: relative;
+  cursor: none;
 
   @include respond(678px) {
     padding: 0 3rem;
@@ -49,8 +51,21 @@
     }
   }
 
+  &__cursor {
+    @include circle(2rem);
+    border: 1.6px solid var(--color-white);
+    background: rgba(yellow, 0.4);
+    position: absolute;
+    display: none;
+    pointer-events: none;
+    z-index: 1;
+  }
+
   &__logo {
     color: var(--color-white);
     text-transform: capitalize;
+    font-weight: 500;
+    position: relative;
+    z-index: 100;
   }
 }

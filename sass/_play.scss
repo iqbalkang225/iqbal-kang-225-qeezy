@@ -30,6 +30,21 @@
     }
   }
 
+  &__next {
+    @include respond(1170px) {
+      margin-bottom: 1rem;
+      justify-self: start;
+      order: 1;
+      background-color: transparent;
+      outline: 2px solid var(--color-yellow);
+      display: none;
+
+      &:hover {
+        transform: scale(0.97);
+      }
+    }
+  }
+
   &__title {
     font-size: 3rem;
     padding: 1rem 3rem;
@@ -109,18 +124,11 @@
     }
 
     &::after {
-      content: "\f00c";
-      font: var(--fa-font-solid);
-      position: absolute;
-      font-size: 2rem;
+      @include psuedo("\f00c");
       opacity: 0;
-      color: white;
-      right: 8%;
-      top: 50%;
-      transform: translateY(-50%);
     }
 
-    &:hover::after {
+    &:not(.wrong-answer):hover::after {
       opacity: 1;
     }
 
