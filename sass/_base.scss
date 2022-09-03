@@ -196,6 +196,7 @@ select {
 
 .container__create {
   background: var(--color-black);
+  // background: url(/question-mark.png), linear-gradient(to bottom, #111, #000);
   width: 100%;
   // min-height: calc(100vh - 6rem);
   @include flex(column);
@@ -204,8 +205,8 @@ select {
   @include respond(678px) {
     display: grid;
     grid-template-columns: 14rem 1fr;
-    // place-items: end;
-    align-items: stretch;
+    place-items: end;
+    // align-items: stretch;
   }
 
   @include respond(920px) {

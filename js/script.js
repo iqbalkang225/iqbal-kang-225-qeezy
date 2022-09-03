@@ -1,65 +1,7 @@
 import { get, getAll } from "./funcUtil.js";
 import domEl from "./domElements.js";
 
-domEl.playText.addEventListener("click", (e) => {
-  App.bringToFront(domEl.availableContainer);
-});
-
-domEl.createText.addEventListener("click", () => {
-  App.bringToFront(domEl.createContainer);
-});
-
-domEl.headerContainer.addEventListener("mousemove", (e) => {
-  domEl.cursor.style.display = "block";
-  domEl.cursor.style.left = e.pageX + "px";
-  domEl.cursor.style.top = e.pageY + "px";
-  domEl.cursor.classList.remove("cursor-grow");
-  domEl.headerLogo.classList.remove("text-black");
-
-  if (e.target.classList.contains("header__logo")) {
-    domEl.cursor.classList.add("cursor-grow");
-    domEl.headerLogo.classList.add("text-black");
-  }
-});
-
-domEl.headerContainer.addEventListener("mouseleave", (e) => {
-  domEl.cursor.style.display = "none";
-  domEl.headerLogo.classList.remove("text-black");
-});
-
-const answerInputs = getAll(".answer__input");
-let maxChars = 75;
-
-const changeAnswerInputBg = function (inputEl, color, display) {
-  inputEl.parentElement.style.background = color;
-  inputEl.nextElementSibling.style.display = display;
-};
-
-answerInputs.forEach((answerInput) => {
-  answerInput.addEventListener("input", (e) => {
-    const inputEl = e.target;
-    const bgColor = inputEl.parentElement.dataset.color;
-    let charsTyped = inputEl.value.length;
-
-    changeAnswerInputBg(inputEl, bgColor, "block");
-
-    if (charsTyped <= maxChars)
-      inputEl.nextElementSibling.nextElementSibling.textContent =
-        maxChars - charsTyped;
-    else inputEl.value = inputEl.value.substring(0, maxChars);
-
-    if (!inputEl.value) {
-      changeAnswerInputBg(inputEl, "#fff", "none");
-    }
-  });
-});
-
 //////////////////////////////////////
-
-const playQuestionTitles = getAll(".play__title");
-const playQuestionTime = get(".play__time");
-const playScore = get(".play__score");
-const playAnswers = getAll(".play__answer");
 
 /////////////////////////////////////
 
@@ -69,6 +11,7 @@ class Quiz {
   }
 
   displayQuizName() {
+    //later
     const questionsHeader = get(".questions__header");
 
     domEl.quizNameInput.style.display = "none";
@@ -229,6 +172,33 @@ class App {
     this.renderQuizes();
 
     // EVENT LISTENERS
+
+    domEl.playText.addEventListener("click", (e) => {
+      this.bringToFront(domEl.availableContainer);
+    });
+
+    domEl.createText.addEventListener("click", () => {
+      this.bringToFront(domEl.createContainer);
+    });
+
+    domEl.headerContainer.addEventListener("mousemove", (e) => {
+      domEl.cursor.style.display = "block";
+      domEl.cursor.style.left = e.pageX + "px";
+      domEl.cursor.style.top = e.pageY + "px";
+      domEl.cursor.classList.remove("cursor-grow");
+      domEl.headerLogo.classList.remove("text-black");
+
+      if (e.target.classList.contains("header__logo")) {
+        domEl.cursor.classList.add("cursor-grow");
+        domEl.headerLogo.classList.add("text-black");
+      }
+    });
+
+    domEl.headerContainer.addEventListener("mouseleave", (e) => {
+      domEl.cursor.style.display = "none";
+      domEl.headerLogo.classList.remove("text-black");
+    });
+
     domEl.quizNameBtn.addEventListener("click", () => {
       const userEntered = domEl.quizNameInput.value;
 
@@ -248,6 +218,27 @@ class App {
       this.enableInputs();
     });
 
+    domEl.answerInputs.forEach((answerInput) => {
+      const maxChars = 75;
+
+      answerInput.addEventListener("input", (e) => {
+        const inputEl = e.target;
+        const bgColor = inputEl.parentElement.dataset.color;
+        let charsTyped = inputEl.value.length;
+
+        this.changeAnswerInputBg(inputEl, bgColor, "block");
+
+        if (charsTyped <= maxChars)
+          inputEl.nextElementSibling.nextElementSibling.textContent =
+            maxChars - charsTyped;
+        else inputEl.value = inputEl.value.substring(0, maxChars);
+
+        if (!inputEl.value) {
+          this.changeAnswerInputBg(inputEl, "#fff", "none");
+        }
+      });
+    });
+
     domEl.nextBtns.forEach((btn) => {
       btn.addEventListener("click", () => {
         if (!this.formValidate()) {
@@ -259,7 +250,7 @@ class App {
 
         this.renderQuestions();
 
-        this.reset();
+        this.resetInputs();
       });
     });
 
@@ -269,7 +260,7 @@ class App {
           this.displayPopup("Please complete the form");
           return;
         }
-        App.bringToFront(domEl.availableContainer);
+        this.bringToFront(domEl.availableContainer);
 
         this.addNewQuestion();
 
@@ -279,12 +270,12 @@ class App {
 
         this.renderQuizes();
 
-        this.reset();
+        this.resetInputs();
       });
     });
 
     domEl.allQuestionsContainer.addEventListener("click", (e) => {
-      this.selectQuestion(e);
+      this.selectQuestion(e); //work later
       this.deleteQuestion(e);
     });
 
@@ -294,39 +285,53 @@ class App {
         return;
       }
 
-      App.bringToFront(domEl.playContainer);
-      this.selectQuiz(e);
+      if (e.target.closest(".available__quiz-box")) {
+        this.bringToFront(domEl.playContainer);
 
-      this.questionPopup();
+        this.selectQuiz(e);
+
+        this.questionPopup();
+      }
+    });
+
+    domEl.questionType.addEventListener("change", () => {
+      this.selectType(e);
     });
 
     domEl.submitQuestion.addEventListener("click", () => {
       clearInterval(this.resetTimer);
-      this.changeColors();
+
+      this.changeOptionsColors();
+
       this.checkAnswer();
+
       this.sounds.clockAudio.pause();
-      domEl.submitQuestion.style.display = "none";
+
+      domEl.submitQuestion.style.display = "none"; //later
+
       domEl.playBtn.style.display = "block";
     });
 
     domEl.playBtn.addEventListener("click", () => {
       if (this.currentQuestion >= this.quizQuestions.length - 1) {
         this.winnerPopup();
-        domEl.winnerPopup.classList.add("play__winner-show");
+
         this.sounds.over.play();
+
         return;
       }
-      this.removeColors();
-      this.removeSelected();
+
+      this.removeOptionsColors();
+
+      this.removeSelectedAnswer();
+
       this.currentQuestion++;
+
       this.fetchQuestion();
-      // this.questionTimer();
 
-      for (let sound in this.sounds) {
-        this.sounds[sound].pause();
-      }
+      this.removeSound();
 
-      domEl.playBtn.style.display = "none";
+      domEl.playBtn.style.display = "none"; //;ater
       domEl.submitQuestion.style.display = "block";
 
       this.questionPopup();
@@ -334,45 +339,51 @@ class App {
 
     domEl.winnerClose.addEventListener("click", () => {
       domEl.winnerPopup.classList.remove("play__winner-show");
-      this.resetValues();
-      this.removeColors();
-      this.removeSelected();
 
-      domEl.playBtn.style.display = "none";
+      this.resetValues();
+
+      this.removeOptionsColors();
+
+      this.removeSelectedAnswer();
+
+      domEl.playBtn.style.display = "none"; //later
       domEl.submitQuestion.style.display = "block";
 
-      App.bringToFront(domEl.availableContainer);
+      this.bringToFront(domEl.availableContainer);
     });
 
-    playAnswers.forEach((answer) => {
+    domEl.playAnswers.forEach((answer) => {
       answer.addEventListener("click", this.selectAnswer.bind(this));
     });
 
     domEl.headerLogo.addEventListener("click", () => {
-      App.bringToFront(domEl.playOrCreate);
+      this.bringToFront(domEl.playOrCreate);
 
-      this.removeColors();
-      this.removeSelected();
+      this.removeOptionsColors();
+
+      this.removeSelectedAnswer();
 
       this.resetValues();
 
-      domEl.playBtn.style.display = "none";
+      this.removeSound();
+
+      domEl.playBtn.style.display = "none"; //later
       domEl.submitQuestion.style.display = "block";
 
-      playScore.textContent = this.score;
+      domEl.playScore.textContent = this.score;
     });
   }
 
-  static bringToFront(container) {
+  selectType() {}
+
+  bringToFront(container) {
     const containers = [
       domEl.playContainer,
       domEl.createContainer,
       domEl.availableContainer,
     ];
 
-    containers.forEach((container) =>
-      container.classList.remove("bring-to-front")
-    );
+    containers.forEach((cont) => cont.classList.remove("bring-to-front"));
 
     container.classList.add("bring-to-front");
   }
@@ -389,7 +400,6 @@ class App {
     this.quizes = data;
   }
 
-  ///////////////////////////
   selectQuiz(e) {
     let selectedQuizName = e.target.closest(".available__quiz-box").dataset
       .quiz;
@@ -405,7 +415,6 @@ class App {
     this.quizQuestions = selectedQuiz[selectedQuizName];
 
     this.fetchQuestion();
-    // this.questionTimer();
   }
 
   deleteQuiz(e) {
@@ -419,11 +428,14 @@ class App {
         return quizName !== deleteQuizName;
       }
     });
+
     this.quizes = remainingQuizes;
+
     this.setLocalStorage();
+
     this.renderQuizes();
   }
-  ///////////////////////////
+
   questionTimer() {
     let timeLeft = this.quizQuestions[this.currentQuestion].questionTime;
 
@@ -431,14 +443,19 @@ class App {
 
     this.resetTimer = setInterval(() => {
       timeLeft--;
-      playQuestionTime.textContent = timeLeft;
+
+      domEl.playQuestionTime.textContent = timeLeft;
+
       if (timeLeft === 0) {
         clearInterval(this.resetTimer);
-        this.sounds.clockAudio.pause();
-        this.checkAnswer();
-        this.changeColors();
 
-        domEl.submitQuestion.style.display = "none";
+        this.sounds.clockAudio.pause();
+
+        this.checkAnswer();
+
+        this.changeOptionsColors();
+
+        domEl.submitQuestion.style.display = "none"; //later
         domEl.playBtn.style.display = "block";
       }
     }, 1000);
@@ -447,20 +464,26 @@ class App {
   fetchQuestion() {
     const points = +this.quizQuestions[this.currentQuestion].questionPoints;
 
-    if (points === 100) playScore.textContent = "Standard";
-    if (points === 200) playScore.textContent = "Double";
-    if (points === 0) playScore.textContent = "No points";
+    if (points === 100) domEl.playScore.textContent = "Standard";
+    if (points === 200) domEl.playScore.textContent = "Double";
+    if (points === 0) domEl.playScore.textContent = "No points";
 
-    playQuestionTime.textContent =
+    domEl.playQuestionTime.textContent =
       this.quizQuestions[this.currentQuestion].questionTime;
 
-    playQuestionTitles.forEach(
+    domEl.playQuestionTitles.forEach(
       (title) =>
         (title.textContent =
           this.quizQuestions[this.currentQuestion].questionTitle)
     );
 
-    playAnswers.forEach((answer, index) => {
+    // for (let answer = 0; answer < playAnswers.length; answer++) {
+    //   playAnswers[answer].textContent =
+    //     this.quizQuestions[this.currentQuestion].answer[answer];
+    // }
+
+    domEl.playAnswers.forEach((answer, index) => {
+      //later
       if (index == 0)
         answer.textContent = this.quizQuestions[this.currentQuestion].answer1;
       if (index == 1)
@@ -472,19 +495,23 @@ class App {
     });
   }
 
-  selectAnswer(e) {
-    this.removeSelected();
-    e.currentTarget.classList.toggle("selected-answer");
-    this.selectedAnswer = e.currentTarget.dataset.selected;
+  removeSelectedAnswer() {
+    domEl.playAnswers.forEach((answer) =>
+      answer.classList.remove("selected-answer")
+    );
   }
 
-  removeSelected() {
-    playAnswers.forEach((answer) => answer.classList.remove("selected-answer"));
+  selectAnswer(e) {
+    this.removeSelectedAnswer();
+
+    e.currentTarget.classList.toggle("selected-answer");
+
+    this.selectedAnswer = e.currentTarget.dataset.selected;
   }
 
   checkAnswer() {
     const points = +this.quizQuestions[this.currentQuestion].questionPoints;
-    console.log(points);
+
     if (
       this.selectedAnswer ===
       this.quizQuestions[this.currentQuestion].correctAnswer
@@ -494,37 +521,36 @@ class App {
       if (points === 0) this.score += 0;
 
       this.sounds.success.load();
+
       this.sounds.success.play();
-      // this.score += 100;
+
       this.correctlyAnswered++;
-      // playScore.textContent = this.score;
     } else {
       this.sounds.failure.load();
+
       this.sounds.failure.play();
     }
   }
 
-  changeColors() {
-    playAnswers.forEach((answer) => {
+  changeOptionsColors() {
+    domEl.playAnswers.forEach((answer) => {
       answer.classList.add("wrong-answer");
     });
 
     const correctAnswerEl =
-      +this.quizQuestions[this.currentQuestion].correctAnswer.slice(-1);
+      +this.quizQuestions[this.currentQuestion].correctAnswer.slice(-1) - 1;
 
-    playAnswers[correctAnswerEl - 1].classList.add("correct-answer");
+    domEl.playAnswers[correctAnswerEl].classList.add("correct-answer");
   }
 
-  removeColors() {
-    playAnswers.forEach((answer) => {
+  removeOptionsColors() {
+    domEl.playAnswers.forEach((answer) => {
       answer.classList.remove("correct-answer", "wrong-answer");
     });
   }
 
   renderQuizes() {
     domEl.quizesContainer.textContent = "";
-
-    console.log(this.quizes);
 
     this.quizes.forEach((quiz, index) => {
       const quizObject = Object.entries(quiz);
@@ -643,10 +669,6 @@ class App {
     );
 
     this.currentQuizArr().push(question);
-
-    // return question;
-
-    // console.log(this.quizes);
   }
 
   currentQuizArr() {
@@ -711,16 +733,17 @@ class App {
     }
   }
 
-  reset() {
+  resetInputs() {
     const inputs = getAll("input[type = 'text']");
+
     const selectedRadio = get('input[type="radio"]:checked');
 
     inputs.forEach((input) => (input.value = ""));
 
     selectedRadio.checked = false;
 
-    answerInputs.forEach((inputEl) => {
-      changeAnswerInputBg(inputEl, "#fff", "none");
+    domEl.answerInputs.forEach((inputEl) => {
+      this.changeAnswerInputBg(inputEl, "#fff", "none");
     });
 
     // domEl.selects.forEach((select) => {
@@ -757,13 +780,29 @@ class App {
     }, 3000);
   }
 
+  changeAnswerInputBg(inputEl, color, display) {
+    inputEl.parentElement.style.background = color;
+    inputEl.nextElementSibling.style.display = display;
+  }
+
   winnerPopup() {
+    domEl.winnerPopup.classList.add("play__winner-show");
+
     domEl.winnerTotal.textContent = this.quizQuestions.length;
+
     domEl.winnerScore.textContent = this.score;
+
     domEl.winnerCorrect.textContent = this.correctlyAnswered;
+
     domEl.winnerPercentage.innerText = Math.trunc(
       (this.correctlyAnswered / this.quizQuestions.length) * 100
     );
+  }
+
+  removeSound() {
+    for (let sound in this.sounds) {
+      this.sounds[sound].pause();
+    }
   }
 }
 

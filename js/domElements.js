@@ -3,6 +3,7 @@ export default {
   headerContainer: get(".header"),
   cursor: get(".header__cursor"),
   headerLogo: get(".header__logo"),
+  answerInputs: getAll(".answer__input"),
   // QUESTION HEADING ElEMENTS
   nextBtns: getAll(".btn--next"),
   quizNameInput: get(".quiz__name-input"),
@@ -13,6 +14,7 @@ export default {
   selects: getAll("select"),
   container: get(".container__create"),
   questionsForm: get(".questions__form"),
+  questionType: get(".questions__type"),
 
   allQuestionsContainer: get(".questions__all"),
   quizesContainer: get(".available__quizes-box"),
@@ -28,6 +30,10 @@ export default {
   playOrCreate: get(".container__playorcreate"),
   playPopup: get(".play__question-popup"),
   playBar: get(".play__bar"),
+  playQuestionTitles: getAll(".play__title"),
+  playQuestionTime: get(".play__time"),
+  playScore: get(".play__score"),
+  playAnswers: getAll(".play__answer"),
 
   winnerPopup: get(".play__winner-popup"),
   winnerClose: get(".play__winner-close"),

@@ -138,7 +138,7 @@ select {
     .container__create {
       display: grid;
       grid-template-columns: 14rem 1fr;
-      align-items: stretch; } }
+      place-items: end; } }
   @media (min-width: 920px) {
     .container__create {
       display: grid;
@@ -455,7 +455,6 @@ select {
   font-size: 4rem; }
 
 #questions {
-  background: url(/question-mark.png), linear-gradient(to bottom, #111, #000);
   width: 100%; }
 
 .questions {
@@ -463,7 +462,9 @@ select {
   margin-bottom: 1rem; }
   @media (min-width: 720px) {
     .questions {
-      display: grid; } }
+      display: grid;
+      grid-template-rows: 1fr 1fr;
+      gap: 6rem; } }
   .questions__header {
     display: flex;
     justify-content: center;

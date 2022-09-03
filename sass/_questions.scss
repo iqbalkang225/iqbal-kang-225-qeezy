@@ -1,5 +1,4 @@
 #questions {
-  background: url(/question-mark.png), linear-gradient(to bottom, #111, #000);
   width: 100%;
 }
 
@@ -9,6 +8,8 @@
 
   @include respond(720px) {
     display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: 6rem;
   }
 
   &__header {
