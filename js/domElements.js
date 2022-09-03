@@ -15,6 +15,7 @@ export default {
   container: get(".container__create"),
   questionsForm: get(".questions__form"),
   questionType: get(".questions__type"),
+  answerContainer: get(".questions__answers"),
 
   allQuestionsContainer: get(".questions__all"),
   quizesContainer: get(".available__quizes-box"),
@@ -33,7 +34,7 @@ export default {
   playQuestionTitles: getAll(".play__title"),
   playQuestionTime: get(".play__time"),
   playScore: get(".play__score"),
-  playAnswers: getAll(".play__answer"),
+  playAnswersContainer: get(".play__answers"),
 
   winnerPopup: get(".play__winner-popup"),
   winnerClose: get(".play__winner-close"),

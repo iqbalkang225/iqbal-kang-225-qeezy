@@ -44,7 +44,7 @@ class Question {
     this.correctAnswer = correctAnswer;
     this.questionType = questionType;
     this.questionTime = questionTime;
-    this.questionPoints = questionPoints;
+    this.questionPoints = +questionPoints;
     this.questionId = Math.ceil(Math.random() * 500);
   }
 }
@@ -58,6 +58,7 @@ class App {
     this.selectedAnswer;
     this.resetTimer;
     this.correctlyAnswered = 0;
+    this.playAnswerEls = [];
 
     this.sounds = {
       clockAudio: new Audio("../audio/playing.wav"),
@@ -85,9 +86,7 @@ class App {
             questionTitle: "What is c++? 2",
             answer1: "A software",
             answer2: "A movie",
-            answer3: "A software",
-            answer4: "A place",
-            correctAnswer: "answer3",
+            correctAnswer: "answer1",
             questionTime: 4,
             questionType: "trueorfalse",
             questionPoints: 200,
@@ -101,7 +100,7 @@ class App {
             answer4: "A place",
             correctAnswer: "answer3",
             questionTime: 10,
-            questionType: "trueorfalse",
+            questionType: "quiz",
             questionPoints: 200,
             questionId: 18,
           },
@@ -112,7 +111,7 @@ class App {
             answer2: "pj10",
             answer3: "crypto",
             answer4: "laptop",
-            correctAnswer: "answer3",
+            correctAnswer: "answer2",
             questionTime: 10,
             questionType: "trueorfalse",
             questionPoints: 200,
@@ -127,7 +126,7 @@ class App {
             answer4: "An animal",
             correctAnswer: "answer2",
             questionTime: 5,
-            questionType: "trueorfalse",
+            questionType: "quiz",
             questionPoints: 200,
             questionId: 18,
           },
@@ -138,7 +137,7 @@ class App {
             answer2: "A company",
             answer3: "A person",
             answer4: "A food",
-            correctAnswer: "answer4",
+            correctAnswer: "answer1",
             questionTime: 5,
             questionType: "trueorfalse",
             questionPoints: 200,
@@ -163,9 +162,7 @@ class App {
       },
     ];
 
-    // this.populateQuestions();
     this.disbaleInputs();
-    // this.fetchQuestion();
 
     this.getLocalStorage();
 
@@ -218,25 +215,8 @@ class App {
       this.enableInputs();
     });
 
-    domEl.answerInputs.forEach((answerInput) => {
-      const maxChars = 75;
-
-      answerInput.addEventListener("input", (e) => {
-        const inputEl = e.target;
-        const bgColor = inputEl.parentElement.dataset.color;
-        let charsTyped = inputEl.value.length;
-
-        this.changeAnswerInputBg(inputEl, bgColor, "block");
-
-        if (charsTyped <= maxChars)
-          inputEl.nextElementSibling.nextElementSibling.textContent =
-            maxChars - charsTyped;
-        else inputEl.value = inputEl.value.substring(0, maxChars);
-
-        if (!inputEl.value) {
-          this.changeAnswerInputBg(inputEl, "#fff", "none");
-        }
-      });
+    domEl.questionsForm.addEventListener("click", () => {
+      this.detectCharacters();
     });
 
     domEl.nextBtns.forEach((btn) => {
@@ -295,7 +275,8 @@ class App {
     });
 
     domEl.questionType.addEventListener("change", () => {
-      this.selectType(e);
+      domEl.answerContainer.textContent = "";
+      this.selectType();
     });
 
     domEl.submitQuestion.addEventListener("click", () => {
@@ -327,8 +308,6 @@ class App {
 
       this.currentQuestion++;
 
-      this.fetchQuestion();
-
       this.removeSound();
 
       domEl.playBtn.style.display = "none"; //;ater
@@ -352,8 +331,11 @@ class App {
       this.bringToFront(domEl.availableContainer);
     });
 
-    domEl.playAnswers.forEach((answer) => {
-      answer.addEventListener("click", this.selectAnswer.bind(this));
+    domEl.playAnswersContainer.addEventListener("click", (e) => {
+      if (e.target.classList.contains("play__answer")) {
+        this.removeSelectedAnswer();
+        this.selectAnswer(e);
+      }
     });
 
     domEl.headerLogo.addEventListener("click", () => {
@@ -374,7 +356,71 @@ class App {
     });
   }
 
-  selectType() {}
+  detectCharacters() {
+    const answerInputs = getAll(".answer__input");
+
+    answerInputs.forEach((answerInput) => {
+      const maxChars = 75;
+
+      answerInput.addEventListener("input", (e) => {
+        const inputEl = e.target;
+        const bgColor = inputEl.parentElement.dataset.color;
+        let charsTyped = inputEl.value.length;
+
+        this.changeAnswerInputBg(inputEl, bgColor, "block");
+
+        if (charsTyped <= maxChars)
+          inputEl.nextElementSibling.nextElementSibling.textContent =
+            maxChars - charsTyped;
+        else inputEl.value = inputEl.value.substring(0, maxChars);
+
+        if (!inputEl.value) {
+          this.changeAnswerInputBg(inputEl, "#fff", "none");
+        }
+      });
+    });
+  }
+
+  selectType() {
+    const colorArr = [null, "#ff0000", "#0542b9", "#f5a23d", "#106b03"];
+
+    let questionCount;
+
+    if (domEl.questionType.value === "trueorfalse") questionCount = 3;
+    else questionCount = 5;
+
+    for (let i = 1; i < questionCount; i++) {
+      let html = `
+      <div
+      class="questions__answer questions__answer--${i}"
+      data-color="${colorArr[i]}"
+    >
+      <div class="questions__shape-box questions__shape-box--${i}">
+        <div class="questions__shape questions__shape--${i}"></div>
+      </div>
+
+      <input
+        type="text"
+        class="answer__input answer__input--${i}"
+        placeholder="Add answer ${i}"
+        required
+      />
+
+      <input
+        type="radio"
+        name="answer"
+        value="answer${i}"
+        class="answer answer--${i}"
+      />
+
+      <span class="questions__length">75</span>
+    </div>`;
+
+      domEl.answerContainer.insertAdjacentHTML("beforeend", html);
+
+      this.detectCharacters();
+    }
+  }
 
   bringToFront(container) {
     const containers = [
@@ -413,8 +459,6 @@ class App {
     });
 
     this.quizQuestions = selectedQuiz[selectedQuizName];
-
-    this.fetchQuestion();
   }
 
   deleteQuiz(e) {
@@ -439,6 +483,7 @@ class App {
   questionTimer() {
     let timeLeft = this.quizQuestions[this.currentQuestion].questionTime;
 
+    this.sounds.clockAudio.load();
     this.sounds.clockAudio.play();
 
     this.resetTimer = setInterval(() => {
@@ -461,52 +506,83 @@ class App {
     }, 1000);
   }
 
+  // fetchQuestion() {
+  //   const points = +this.quizQuestions[this.currentQuestion].questionPoints;
+
+  //   if (points === 100) domEl.playScore.textContent = "Standard";
+  //   if (points === 200) domEl.playScore.textContent = "Double";
+  //   if (points === 0) domEl.playScore.textContent = "No points";
+
+  //   domEl.playQuestionTime.textContent =
+  //     this.quizQuestions[this.currentQuestion].questionTime;
+
+  //   domEl.playQuestionTitles.forEach(
+  //     (title) =>
+  //       (title.textContent =
+  //         this.quizQuestions[this.currentQuestion].questionTitle)
+  //   );
+
+  //   domEl.playAnswers.forEach((answer, index) => {
+  //     //later
+  //     if (index == 0)
+  //       answer.textContent = this.quizQuestions[this.currentQuestion].answer1;
+  //     if (index == 1)
+  //       answer.textContent = this.quizQuestions[this.currentQuestion].answer2;
+  //     if (index == 2)
+  //       answer.textContent = this.quizQuestions[this.currentQuestion].answer3;
+  //     if (index == 3)
+  //       answer.textContent = this.quizQuestions[this.currentQuestion].answer4;
+  //   });
+  // }
+
   fetchQuestion() {
-    const points = +this.quizQuestions[this.currentQuestion].questionPoints;
+    //later
+
+    const questionData = this.quizQuestions[this.currentQuestion];
+
+    const points = questionData.questionPoints;
+
+    console.log(points);
 
     if (points === 100) domEl.playScore.textContent = "Standard";
     if (points === 200) domEl.playScore.textContent = "Double";
     if (points === 0) domEl.playScore.textContent = "No points";
 
-    domEl.playQuestionTime.textContent =
-      this.quizQuestions[this.currentQuestion].questionTime;
+    domEl.playQuestionTime.textContent = questionData.questionTime;
 
     domEl.playQuestionTitles.forEach(
-      (title) =>
-        (title.textContent =
-          this.quizQuestions[this.currentQuestion].questionTitle)
+      (title) => (title.textContent = questionData.questionTitle)
     );
 
-    // for (let answer = 0; answer < playAnswers.length; answer++) {
-    //   playAnswers[answer].textContent =
-    //     this.quizQuestions[this.currentQuestion].answer[answer];
-    // }
+    domEl.playAnswersContainer.textContent = "";
 
-    domEl.playAnswers.forEach((answer, index) => {
-      //later
-      if (index == 0)
-        answer.textContent = this.quizQuestions[this.currentQuestion].answer1;
-      if (index == 1)
-        answer.textContent = this.quizQuestions[this.currentQuestion].answer2;
-      if (index == 2)
-        answer.textContent = this.quizQuestions[this.currentQuestion].answer3;
-      if (index == 3)
-        answer.textContent = this.quizQuestions[this.currentQuestion].answer4;
-    });
+    let questionCount;
+
+    if (questionData.questionType === "trueorfalse") questionCount = 3;
+    else questionCount = 5;
+
+    for (let i = 1; i < questionCount; i++) {
+      let html = `
+    <div class="play__answer play__answer--${i}" data-selected="answer${i}">
+      <div class="play__shape play__shape--${i}"></div>
+      <p class="play__selected">${questionData[`answer${i}`]}</p>
+    </div>`;
+
+      domEl.playAnswersContainer.insertAdjacentHTML("beforeend", html);
+    }
+    this.playAnswerEls = [...domEl.playAnswersContainer.children];
   }
 
   removeSelectedAnswer() {
-    domEl.playAnswers.forEach((answer) =>
+    this.playAnswerEls.forEach((answer) =>
       answer.classList.remove("selected-answer")
     );
   }
 
   selectAnswer(e) {
-    this.removeSelectedAnswer();
+    e.target.classList.toggle("selected-answer");
 
-    e.currentTarget.classList.toggle("selected-answer");
-
-    this.selectedAnswer = e.currentTarget.dataset.selected;
+    this.selectedAnswer = e.target.dataset.selected;
   }
 
   checkAnswer() {
@@ -533,18 +609,18 @@ class App {
   }
 
   changeOptionsColors() {
-    domEl.playAnswers.forEach((answer) => {
+    this.playAnswerEls.forEach((answer) => {
       answer.classList.add("wrong-answer");
     });
 
     const correctAnswerEl =
       +this.quizQuestions[this.currentQuestion].correctAnswer.slice(-1) - 1;
 
-    domEl.playAnswers[correctAnswerEl].classList.add("correct-answer");
+    this.playAnswerEls[correctAnswerEl].classList.add("correct-answer");
   }
 
   removeOptionsColors() {
-    domEl.playAnswers.forEach((answer) => {
+    this.playAnswerEls.forEach((answer) => {
       answer.classList.remove("correct-answer", "wrong-answer");
     });
   }
@@ -738,11 +814,13 @@ class App {
 
     const selectedRadio = get('input[type="radio"]:checked');
 
+    const answerInputs = getAll(".answer__input");
+
     inputs.forEach((input) => (input.value = ""));
 
     selectedRadio.checked = false;
 
-    domEl.answerInputs.forEach((inputEl) => {
+    answerInputs.forEach((inputEl) => {
       this.changeAnswerInputBg(inputEl, "#fff", "none");
     });
 
