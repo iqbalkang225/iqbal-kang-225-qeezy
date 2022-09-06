@@ -1,4 +1,10 @@
 .play {
+  &__slide {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
   &__header {
     @include flex;
     justify-content: space-evenly;
