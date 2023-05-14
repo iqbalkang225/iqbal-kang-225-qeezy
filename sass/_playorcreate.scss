@@ -1,67 +1,112 @@
-.playorcreate {
-  color: var(--color-white);
-  text-transform: capitalize;
-  font-size: 3.3rem;
-  overflow: hidden;
+.container {
+  &__img {
+    display: none;
+    width: calc(200px + 20vw);
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
 
-  @include respond(678px) {
-    font-size: 5rem;
+    @include respond(786px) {
+      display: block;
+    }
   }
 
-  @include respond(920px) {
-    font-size: 7rem;
+  &__playorcreate {
+    font-size: 1.6rem;
+    position: relative;
+    color: var(--color-gray-light);
+
+    width: 70vw;
+    margin: 0 auto;
+
+    @include respondDesktopFirst(1170px) {
+      width: 80vw;
+    }
+    @include respondDesktopFirst(970px) {
+      width: 90vw;
+    }
   }
 
-  @include respond(1170px) {
-    font-size: 9rem;
+  &__hero {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    max-width: 45rem;
+
+    @include respond(786px) {
+      right: 0;
+    }
   }
-}
 
-.play {
-  background: var(--color-green);
+  &__buttons {
+    margin-top: 2rem;
+  }
 
-  &__heading {
-    height: 100%;
-    line-height: 0.75;
+  &__button {
+    background-color: transparent;
+    border: none;
+    min-width: 120px;
+    text-transform: capitalize;
+    padding: 1rem 0;
+    border-radius: 5px;
+    letter-spacing: 0.5px;
+    font-size: inherit;
+    cursor: pointer;
+    transition: var(--transition);
+
+    &--play {
+      background: var(--color-white);
+      margin-right: 1rem;
+
+      &:hover {
+        background: transparent;
+        border: 1px solid var(--color-white);
+        color: var(--color-white);
+        transform: translateY(-5px);
+      }
+    }
+
+    &--create {
+      border: 1px solid var(--color-white);
+      color: var(--color-white);
+
+      &:hover {
+        background: var(--color-white);
+        border: 1px solid var(--color-black);
+        color: var(--color-black);
+        transform: translateY(-5px);
+      }
+    }
+  }
+
+  &__shapes {
+    position: absolute;
+    bottom: 3rem;
     @include flex;
-    transform: translateY(-5%);
-
-    @include respond(920px) {
-      align-items: start;
-      transform: translateY(0);
-    }
-
-    span {
-      cursor: pointer;
-      &:hover {
-        color: var(--color-yellow);
-      }
-    }
+    gap: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
   }
-}
 
-.create {
-  background: var(--color-yellow);
+  &__shape {
+    width: 1rem;
+    height: 1rem;
 
-  &__heading {
-    height: 100%;
-    line-height: 0.7;
-
-    span {
-      cursor: pointer;
-      &:hover {
-        color: var(--color-green);
-      }
+    &--1 {
+      background-color: var(--color-red);
     }
 
-    display: flex;
-    align-items: center;
-    transform: translateY(5%);
-    justify-content: center;
+    &--2 {
+      background-color: var(--color-yellow);
+    }
 
-    @include respond(920px) {
-      align-items: end;
-      transform: translateY(0);
+    &--3 {
+      background-color: var(--color-blue);
+    }
+
+    &--4 {
+      background-color: var(--color-green);
     }
   }
 }

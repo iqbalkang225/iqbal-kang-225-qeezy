@@ -3,6 +3,7 @@
   height: 6rem;
   position: relative;
   cursor: none;
+  border-bottom: 1px solid var(--color-white);
 
   @include respond(678px) {
     padding: 0 3rem;
@@ -13,43 +14,48 @@
 
 .header {
   @include flex;
-  justify-content: space-between;
+  width: 100%;
 
   @include respond(900px) {
     justify-content: center;
   }
 
-  &__icon-box {
-    cursor: pointer;
-
-    @include respond(900px) {
-      display: none;
-    }
+  &__img {
+    width: 50px;
+    margin-right: 1rem;
   }
 
-  &__icon {
-    width: 2.6rem;
-    height: 0.2rem;
-    background: var(--color-white);
-    position: relative;
+  // &__icon-box {
+  //   cursor: pointer;
 
-    &::before,
-    &::after {
-      content: "";
-      width: 100%;
-      height: 100%;
-      background: var(--color-white);
-      position: absolute;
-    }
+  //   @include respond(900px) {
+  //     display: none;
+  //   }
+  // }
 
-    &::before {
-      bottom: 1rem;
-    }
+  // &__icon {
+  //   width: 2.6rem;
+  //   height: 0.2rem;
+  //   background: var(--color-white);
+  //   position: relative;
 
-    &::after {
-      top: 1rem;
-    }
-  }
+  //   &::before,
+  //   &::after {
+  //     content: '';
+  //     width: 100%;
+  //     height: 100%;
+  //     background: var(--color-white);
+  //     position: absolute;
+  //   }
+
+  //   &::before {
+  //     bottom: 1rem;
+  //   }
+
+  //   &::after {
+  //     top: 1rem;
+  //   }
+  // }
 
   &__cursor {
     @include circle(2rem);

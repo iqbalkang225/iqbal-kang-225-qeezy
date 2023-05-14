@@ -28,26 +28,41 @@
   <body>
     <!-- HEADER SECTION -->
     <header id="header">
-      <div class="header section__center">
-        <div class="header__icon-box">
+      <div class="header">
+        <!-- <div class="header__icon-box">
           <div class="header__icon"></div>
-        </div>
+        </div> -->
 
         <div class="header__cursor"></div>
 
+        <img src="/logo.png" class="header__img" alt="" />
         <h1 class="header__logo">qeezy</h1>
 
-        <button class="btn btn--finish btn--finish-1">finish</button>
+        <!-- <button class="btn btn--finish btn--finish-1">finish</button> -->
       </div>
     </header>
 
     <main class="main-container">
       <div class="container__playorcreate">
-        <div class="play playorcreate">
-          <h1 class="play__heading"><span>play</span></h1>
+        <img src="/bg.png" alt="hero-bg" class="container__img" />
+        <div class="container__hero">
+          <p>
+            Welcome to <strong>Queezy</strong> – the ultimate destination for quizzers! Here you can find a wide variety
+            of exciting quizzes to play, or if you're feeling creative, you can even create your own! Our platform is
+            designed to be intuitive and easy to use, so you can get playing and creating in no time. Whether you're a
+            quiz enthusiast, a trivia buff, or just looking to kill some time, Queezy has the perfect quiz for you. So
+            what are you waiting for? Get started now and join the quiz revolution!
+          </p>
+          <div class="container__buttons">
+            <button class="container__button container__button--play">play</button>
+            <button class="container__button container__button--create">create</button>
+          </div>
         </div>
-        <div class="create playorcreate">
-          <h1 class="create__heading"><span>create</span></h1>
+        <div class="container__shapes">
+          <div class="questions__shape container__shape container__shape--1 questions__shape--1"></div>
+          <div class="questions__shape container__shape container__shape--2 questions__shape--2"></div>
+          <div class="questions__shape container__shape container__shape--3 questions__shape--3"></div>
+          <div class="questions__shape container__shape container__shape--4 questions__shape--4"></div>
         </div>
       </div>
 
@@ -77,123 +92,65 @@
         <!-- QUESTIONS FORM - MIDDLE PART -->
         <section id="questions">
           <div class="section__center questions">
-            <div class="questions__header">
+            <form class="questions__header">
               <h4 class="questions__title">quiz name:</h4>
-              <input
-                type="text"
-                class="quiz__name-input"
-                name="quiz__name-input"
-                placeholder="Enter quiz name"
-              />
+              <input type="text" class="quiz__name-input" name="quiz__name-input" placeholder="Enter quiz name" />
               <button class="btn quiz__name-btn">Submit</button>
               <!-- <h2 class="questions__name">Tech</h2> -->
-            </div>
+            </form>
 
             <form action="" class="questions__form disabled">
-              <input
-                type="text"
-                class="questions__input"
-                placeholder="Start typing your question"
-              />
+              <input type="text" class="questions__input" placeholder="Start typing your question" />
 
               <div class="questions__answers">
                 <!-- ANSWER 1 -->
-                <div
-                  class="questions__answer questions__answer--1"
-                  data-color="#ff0000"
-                >
+                <div class="questions__answer questions__answer--1" data-color="#ff0000">
                   <div class="questions__shape-box questions__shape-box--1">
                     <div class="questions__shape questions__shape--1"></div>
                   </div>
 
-                  <input
-                    type="text"
-                    class="answer__input answer__input--1"
-                    placeholder="Add answer 1"
-                    required
-                  />
+                  <input type="text" class="answer__input answer__input--1" placeholder="Add answer 1" required />
 
-                  <input
-                    type="radio"
-                    name="answer"
-                    value="answer1"
-                    class="answer answer--1"
-                  />
+                  <input type="radio" name="answer" value="answer1" class="answer answer--1" />
 
                   <span class="questions__length">75</span>
                 </div>
 
                 <!-- ANSWER 2 -->
-                <div
-                  class="questions__answer questions__answer--2"
-                  data-color="#0542b9"
-                >
+                <div class="questions__answer questions__answer--2" data-color="#0542b9">
                   <div class="questions__shape-box questions__shape-box--2">
                     <div class="questions__shape questions__shape--2"></div>
                   </div>
 
-                  <input
-                    type="text"
-                    class="answer__input answer__input--2"
-                    placeholder="Add answer 2"
-                  />
+                  <input type="text" class="answer__input answer__input--2" placeholder="Add answer 2" />
 
-                  <input
-                    type="radio"
-                    name="answer"
-                    class="answer answer--2"
-                    value="answer2"
-                  />
+                  <input type="radio" name="answer" class="answer answer--2" value="answer2" />
 
                   <span class="questions__length">75</span>
                 </div>
 
                 <!-- ANSWER 3-->
-                <div
-                  class="questions__answer questions__answer--3"
-                  data-color="#f5a23d"
-                >
+                <div class="questions__answer questions__answer--3" data-color="#f5a23d">
                   <div class="questions__shape-box questions__shape-box--3">
                     <div class="questions__shape questions__shape--3"></div>
                   </div>
 
-                  <input
-                    type="text"
-                    class="answer__input answer__input--3"
-                    placeholder="Add answer 3"
-                  />
+                  <input type="text" class="answer__input answer__input--3" placeholder="Add answer 3" />
 
-                  <input
-                    type="radio"
-                    name="answer"
-                    class="answer answer--3"
-                    value="answer3"
-                  />
+                  <input type="radio" name="answer" class="answer answer--3" value="answer3" />
 
                   <span class="questions__length">75</span>
                 </div>
 
                 <!-- ANSWER 4 -->
-                <div
-                  class="questions__answer questions__answer--4"
-                  data-color="#106b03"
-                >
+                <div class="questions__answer questions__answer--4" data-color="#106b03">
                   <div class="questions__shape-box questions__shape-box--4">
                     <div class="questions__shape questions__shape--4"></div>
                   </div>
 
-                  <input
-                    type="text"
-                    class="answer__input answer__input--4"
-                    placeholder="Add answer 4"
-                  />
+                  <input type="text" class="answer__input answer__input--4" placeholder="Add answer 4" />
 
-                  <input
-                    type="radio"
-                    name="answer"
-                    class="answer answer--4"
-                    value="answer4"
-                  />
+                  <input type="radio" name="answer" class="answer answer--4" value="answer4" />
 
                   <span class="questions__length">75</span>
                 </div>
@@ -254,9 +211,7 @@
           </div>
 
           <button class="btn btn--next btn--hide">next question</button>
-          <button class="btn btn--finish btn--finish-2 btn--hide">
-            finish
-          </button>
+          <button class="btn btn--finish btn--finish-2 btn--hide">finish</button>
         </aside>
 
         <div class="overlay"></div>
@@ -305,9 +260,7 @@
         </div>
 
         <div class="play__winner-popup">
-          <span class="play__winner-close"
-            ><i class="fa-solid fa-xmark"></i
-          ></span>
+          <span class="play__winner-close"><i class="fa-solid fa-xmark"></i></span>
           <div class="play__winner-header">
             <div class="play__winner-scorebox">
               <p class="play__winner-score">300</p>

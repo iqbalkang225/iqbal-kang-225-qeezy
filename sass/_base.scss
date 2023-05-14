@@ -4,13 +4,19 @@
   }
 }
 
+@mixin respondDesktopFirst($size) {
+  @media (max-width: $size) {
+    @content;
+  }
+}
+
 @mixin circle($radius) {
   height: $radius;
   width: $radius;
   border-radius: 50%;
 }
 
-@mixin flex($direction: "row") {
+@mixin flex($direction: 'row') {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -49,7 +55,7 @@
   --color-gray-light: #aaaaaa;
   --color-gray: #777777;
 
-  --font-family: "Montserrat", sans-serif;
+  --font-family: 'Montserrat', sans-serif;
   --box-shadow-light: 0px 5px 5px rgba(0, 0, 0, 0.1);
   --box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2);
   --border-radius: 8px;
@@ -59,11 +65,20 @@
 
 html {
   font-size: 62.5%;
+
+  @include respond(1710px) {
+    font-size: 80%;
+  }
+
+  @include respond(1920px) {
+    font-size: 100%;
+  }
 }
 
 body {
   color: var(--color-gray);
   font-family: var(--font-family);
+  line-height: 1.7;
 }
 
 ul {
@@ -103,7 +118,7 @@ select {
   border: none;
   outline: none;
   width: 100%;
-  max-width: 140px;
+  // max-width: 140px;
 
   &--finish {
     background: linear-gradient(to right, #ff0000, #f0512e);
@@ -179,6 +194,7 @@ select {
   position: relative;
   overflow-x: hidden;
   overflow: hidden;
+  background-color: black;
 }
 
 .main-container > * {
@@ -196,9 +212,7 @@ select {
 
 .container__create {
   background: var(--color-black);
-  // background: url(/question-mark.png), linear-gradient(to bottom, #111, #000);
   width: 100%;
-  // min-height: calc(100vh - 6rem);
   @include flex(column);
   position: relative;
 
@@ -256,7 +270,7 @@ select {
 }
 
 .container__create .disabled {
-  opacity: 0.4;
+  opacity: 0.075;
 }
 
 .bring-to-front {
@@ -269,7 +283,7 @@ select {
   opacity: 0.8;
 
   &::before {
-    @include psuedo("\f00c");
+    @include psuedo('\f00c');
     opacity: 1;
   }
 }
@@ -279,7 +293,7 @@ select {
   pointer-events: none;
 
   &::before {
-    @include psuedo("\f00d");
+    @include psuedo('\f00d');
   }
 }
 
@@ -288,7 +302,7 @@ select {
   position: relative;
 
   &::before {
-    @include psuedo("\f00c");
+    @include psuedo('\f00c');
   }
 }
 
