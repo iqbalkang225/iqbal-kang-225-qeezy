@@ -70,7 +70,8 @@ select {
   text-transform: capitalize;
   border: none;
   outline: none;
-  width: 100%; }
+  width: 100%;
+  max-width: 300px; }
   .btn--finish {
     background: linear-gradient(to right, #ff0000, #f0512e); }
     .btn--finish:hover {
@@ -572,13 +573,22 @@ select {
   padding: 1rem;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
-  width: 30%; }
+  width: 100%; }
+
+.quiz__header-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: "row";
+  align-items: stretch;
+  flex-grow: 0.5; }
 
 .quiz__name-btn {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
   background: linear-gradient(to left, #0542b9, #1450c8);
-  border: none; }
+  border: none;
+  max-width: 200px; }
   .quiz__name-btn:hover {
     background: linear-gradient(to right, #0542b9, #1450c8); }
 

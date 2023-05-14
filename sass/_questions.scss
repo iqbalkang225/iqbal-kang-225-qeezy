@@ -170,7 +170,13 @@
   padding: 1rem;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
-  width: 30%;
+  width: 100%;
+}
+
+.quiz__header-box {
+  @include flex;
+  align-items: stretch;
+  flex-grow: 0.5;
 }
 
 .quiz__name-btn {
@@ -178,6 +184,7 @@
   border-top-left-radius: 0;
   background: linear-gradient(to left, #0542b9, #1450c8);
   border: none;
+  max-width: 200px;
 
   &:hover {
     background: linear-gradient(to right, #0542b9, #1450c8);
