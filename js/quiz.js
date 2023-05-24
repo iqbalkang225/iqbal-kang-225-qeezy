@@ -1,3 +1,5 @@
+import { get, getAll } from './funcUtil.js';
+import domEl from './domElements.js';
 class Quiz {
   constructor(qName) {
     this[qName] = [];
