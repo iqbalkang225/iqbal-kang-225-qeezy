@@ -8,6 +8,7 @@ export default {
   nextBtns: getAll('.btn--next'),
   quizNameInput: get('.quiz__name-input'),
   quizNameBtn: get('.quiz__name-btn'),
+  quizHeaderBox: get('.quiz__header-box'),
 
   // QUESTION INPUT ELEMENTS
   inputs: getAll('input'),

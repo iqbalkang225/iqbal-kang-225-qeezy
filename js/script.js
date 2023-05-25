@@ -67,6 +67,8 @@ class App {
 
       this.quizes.push(quiz);
 
+      domEl.quizHeaderBox.style.display = 'none';
+
       this.enableInputs();
     });
 
