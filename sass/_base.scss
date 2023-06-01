@@ -70,7 +70,7 @@ html {
     font-size: 80%;
   }
 
-  @include respond(1920px) {
+  @include respond(2560px) {
     font-size: 100%;
   }
 }
