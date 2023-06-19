@@ -1,10 +1,10 @@
 <h1 align="center" id="title">Qeezy</h1>
 
 <p align="center">
-<img src="https://socialify.git.ci/iqbalkang225/iqbal-kang-225-tohdo/image?language=1&name=1&owner=1&theme=Light" />
+<img src="https://socialify.git.ci/iqbalkang225/iqbal-kang-225-qeezy/image?language=1&name=1&owner=1&theme=Light" />
 </p>
 
-<p id="description">A handy tool for busy bees this to-do app is the perfect assistant for anyone looking to streamline their day and stay on top of their responsibilities. With an intuitive design and powerful features it's the go-to way to stay organized and get things done. 
+<p id="description"> This is a quiz website, allowing you to create new quizzes or take existing ones. It has features such as an interface for creating quizzes, an interface for taking the quizzes, and tracking of quiz scores. It is a great way to test your knowledge and have fun!
   
 This is a front-end application designed to provide a practical learning experience. The primary goal was to gain a deeper understanding of web development and to create a functional and well-designed application from scratch.</p>
 
@@ -16,7 +16,7 @@ This is a front-end application designed to provide a practical learning experie
 
 Here're some of the project's best features:
 
-*   create or play
+*   Create or play
 *   Points Allocation System
 *   Timed Challenge
 *   True/false questions
